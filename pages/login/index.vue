@@ -23,7 +23,7 @@
           <label class="form__group-control-label" for="pass">{{ $t('login.pass') }}</label>
         </div>
         <div class="forgot">
-          <div>
+          <div @click="isModal = true">
             {{ $t('login.forgot') }}
           </div>
         </div>
@@ -44,6 +44,29 @@
         </div>
       </form>
     </div>
+    <div class="modal" v-if="isModal">
+      <div class="modal-block font-size-22" v-click-outside="()=>{this.isModal=false}">
+        <div class="modal-block-header">
+          <span>
+            {{ $t('login.forgot') }}
+          </span>
+          <img src="../../assets/img/close-forgot.png" alt="" @click="isModal=false">
+        </div>
+        <div class="modal-block-body font-size-20">
+          <div>
+            {{ $t('login.forgot_text') }}
+          </div>
+          <div class="modal-social">
+            <a href="https://wa.me/+77770212808" target="_blank">
+              <img src="../../assets/img/WhatsApp.png" alt="">
+            </a>
+            <a href="https://telegram.im/@testhubkz" target="_blank">
+              <img src="../../assets/img/Telegram.png" alt="">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -63,7 +86,8 @@ export default {
       error: {
         name: "",
         has: false,
-      }
+      },
+      isModal: false
     }
   },
   methods: {
@@ -300,5 +324,55 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+.modal{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-block{
+  max-width: 90%;
+  max-height: 90%;
+  width: 476px;
+  height: max-content;
+  background: #FFFFFF;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 3rem;
+  font-weight: 500;
+  color: #000823;
+}
+.modal-block-header{
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+}
+.modal-block-header img{
+  width: 15px;
+  height: 15px;
+  margin-left: auto;
+  cursor: pointer;
+}
+.modal-block-body{
+  margin-top: 3rem;
+}
+.modal-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3rem;
+}
+.modal-social a:first-child{
+  margin-right: 5rem;
+}
+.modal-social a img{
+  width: 50px;
+  height: 50px;
 }
 </style>

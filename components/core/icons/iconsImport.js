@@ -1,5 +1,5 @@
 import {
-  BurgerIcon, LogoutIcon, PastTestIcon, RulesIcon, UserIcon,
+  BurgerIcon, LogoutIcon, PastTestIcon, RCorrectIcon, RulesIcon, RWrongIcon, UserIcon,
 } from "./own";
 
 
@@ -8,5 +8,7 @@ export default {
   UserIcon,
   PastTestIcon,
   RulesIcon,
-  LogoutIcon
+  LogoutIcon,
+  RCorrectIcon,
+  RWrongIcon
 }
