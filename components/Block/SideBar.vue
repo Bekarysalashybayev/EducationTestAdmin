@@ -1,6 +1,7 @@
 <template>
   <div :class="['side-bar', {open: isOpen}]">
     <div class="side-bar__inner">
+      <div class="outer" @click="$emit('close')"></div>
       <div class="block">
         <div class="links">
           <div class="links__user">
@@ -116,6 +117,14 @@ export default {
     fill: $white;
   }
 }
+.outer{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100%;
+  z-index: 1;
+}
 .side-bar {
   position: fixed;
   left: 0;
@@ -133,19 +142,14 @@ export default {
   }
 
   .closed{
-    visibility: hidden;
-    opacity: 0;
-    height: 0;
-    transition: all ease-in-out .05s;
+    display: none;
   }
 
   &.open {
     width: 300px;
 
     .closed{
-      visibility: visible;
-      opacity: 1;
-      height: auto;
+      display: block;
     }
   }
 
@@ -155,6 +159,8 @@ export default {
     height: 100%;
     background-color: $default_sb_bg_color;
     overflow: hidden;
+    position: relative;
+    z-index: 2;
 
     &:hover {
       overflow-y: auto;
@@ -225,7 +231,7 @@ export default {
 
       &__logout{
         height: 60px;
-        width: 100%;
+        width: 300px;
         position: absolute;
         left: 0;
         bottom: 0;

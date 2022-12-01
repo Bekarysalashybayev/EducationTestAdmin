@@ -6,7 +6,7 @@ export default {
     port: 3000
   },
   head: {
-    title: 'TestEntMain',
+    title: 'TestHub',
     htmlAttrs: {
       lang: 'en'
     },

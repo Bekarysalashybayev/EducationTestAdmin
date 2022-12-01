@@ -2,7 +2,7 @@
 <div class="default-layout">
   <d-header @close="isOpen = !isOpen"/>
   <div :class="['default-layout__content', isOpen ? 'open' : 'close']">
-    <side-bar :is-open="isOpen"/>
+    <side-bar :is-open="isOpen" @close="isOpen = !isOpen"/>
     <nuxt />
   </div>
 </div>
