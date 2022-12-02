@@ -138,7 +138,7 @@ export default {
       try {
         await this.$axios.post(`/quizzes/finish-ent/${this.id}/${this.test_id}/`)
         this.$toast.success('Ответ сохранен успешно!')
-        await this.$router.push(this.localePath({path: `/ent/${this.id}`}))
+        await this.$router.push(this.localePath({path: `/ent/result/${this.id}`}))
       } catch (e) {
         this.$toast.error('Ошибка!')
       }

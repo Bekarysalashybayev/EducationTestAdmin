@@ -40,7 +40,7 @@ export default {
   max-width: calc(100vw - 20px);
   max-height: calc(100vh - 50px);
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding: 3rem;
   position: relative;
 }

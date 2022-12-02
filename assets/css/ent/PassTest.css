@@ -132,6 +132,29 @@
   margin: 0 35% 30px;
   display: block;
 }
+
+.common-buttons {
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.common-buttons button {
+  margin-right: 20px;
+  border: 1px solid #005DAE;
+  background-color: #FFFFFF;
+  box-sizing: border-box;
+  color: #005DAE;
+  padding: 5px 15px;
+}
+
+.common-buttons button:first-child {
+  background-color: #005DAE;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
 @media (max-width: 1050px) {
   .test__pass-content {
     max-width: 90%;
