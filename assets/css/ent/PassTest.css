@@ -1,0 +1,159 @@
+.ent-test{
+  background-color: #FBFBFB;
+  min-height: 100vh;
+  padding: 4rem 0;
+}
+.test__pass {
+  font-family: Roboto;
+  font-style: normal;
+  color: #000000;
+  padding: 8rem 0;
+  background: #709FDC;
+  min-height: 100vh;
+}
+
+.test__pass-content {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.test__pass-header {
+  background: #FFFFFF;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 2rem;
+  line-height: 2.3rem;
+  border: 1px solid #B7B7B7;
+}
+
+.test__pass-header .title {
+  color: #005DAE;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000000;
+}
+
+.test__pass-header .time {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  color: #000000;
+}
+
+.test__pass-header .time span {
+  color: #709FDC;
+  line-height: 2.5rem;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.test__pass-body {
+  margin-top: 30px;
+  display: flex;
+}
+
+.lessons_type {
+  flex: 0 0 368px;
+}
+
+.question__type {
+  padding-left: 30px;
+  flex-grow: 1
+}
+
+.testFinish .note {
+  font-size: 2.5rem;
+  line-height: 3rem;
+  color: #709FDC;
+  margin-bottom: 5rem;
+}
+
+.testFinish .modal-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.testFinish .modal-btn button {
+  background: #709FDC;
+  border-radius: 10px;
+  border: 0;
+  font-size: 2rem;
+  line-height: 2.4rem;
+  color: #FFFFFF;
+  padding: 7px 15px;
+}
+
+.testFinish .modal-btn button.cancel {
+  background: #FFFFFF;
+  border: 1px solid #709FDC;
+  color: #709FDC;
+}
+.save__finish {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.finish__test {
+  width: 48%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 2rem;
+  line-height: 2rem;
+  color: #709FDC;
+  background: #FFFFFF;
+  border-radius: 10px;
+  padding: 1.5rem 0;
+  margin-top: 4rem;
+  cursor: pointer;
+}
+
+.finish__test:hover {
+  background-color: #709FDC;
+  border: 1px solid #FFFFFF;
+  color: #FFFFFF;
+}
+.finish-test-last-ent {
+  margin: 50px 0 0 !important;
+}
+
+.finish-test-last {
+  background-color: #005DAE;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 18px;
+  color: #FFFFFF;
+  border: 0;
+  padding: 10px 15px;
+  margin: 0 35% 30px;
+  display: block;
+}
+@media (max-width: 1050px) {
+  .test__pass-content {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .lessons_type {
+    flex: 0 0 300px;
+  }
+}
+
+@media (max-width: 950px) {
+  .test__pass-content {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .test__pass-body {
+    display: block;
+  }
+
+  .question__type {
+    padding-left: 0;
+  }
+}

@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div class="page" v-if="!isLoading">
     <div class="title font-size-24">{{ $t('variant.title') }}</div>
     <div class="sub-title font-size-17">
       {{ $t('variant.s_title_1') }}
@@ -8,24 +8,24 @@
       <div class="label font-size-15">
         {{ $t('variant.name') }}
       </div>
-      <div class="name font-size-17">
-        Толғанай
+      <div class="name font-size-17" v-if="currentUser">
+        {{ currentUser.first_name }}
       </div>
     </div>
     <div class="description">
       <div class="label font-size-15">
         {{ $t('variant.last_name') }}
       </div>
-      <div class="name font-size-17">
-        Ақылбекова
+      <div class="name font-size-17" v-if="currentUser">
+        {{ currentUser.last_name }}
       </div>
     </div>
     <div class="description">
       <div class="label font-size-15">
         {{ $t('variant.middle_name') }}
       </div>
-      <div class="name font-size-17">
-        Мұхитқызы
+      <div class="name font-size-17" v-if="currentUser">
+        {{ currentUser.middle_name }}
       </div>
     </div>
     <div class="sub-title mt-70 font-size-17">
@@ -36,7 +36,7 @@
         {{ $t('variant.subject_1') }}
       </div>
       <div class="name font-size-17">
-        Математическая грамотностьx
+        {{ $t('variant.subject_1_name') }}
       </div>
     </div>
     <div class="description">
@@ -44,7 +44,7 @@
         {{ $t('variant.subject_2') }}
       </div>
       <div class="name font-size-17">
-        Математическая грамотность
+        {{ $t('variant.subject_2_name') }}
       </div>
     </div>
     <div class="description">
@@ -52,7 +52,7 @@
         {{ $t('variant.subject_3') }}
       </div>
       <div class="name font-size-17">
-        История Казахстана
+        {{ $t('variant.subject_3_name') }}
       </div>
     </div>
     <div class="sub-title mt-50 font-size-17">
@@ -68,14 +68,20 @@
 <!--      </select>-->
 <!--    </div>-->
     <div class="select">
-      <select class="font-size-17">
+      <select :class="['font-size-17', {error: isError && !lessons}]" v-model="lessons">
         <option :value="null" disabled selected>
           {{ $t('variant.select_subject') }}
+        </option>
+        <option :value="lesson.id"
+                v-for="(lesson, i) in lessonPairs"
+                :key="i"
+        >
+          {{ lesson['lesson_1']['name'] + " / " + lesson['lesson_2']['name'] }}
         </option>
       </select>
     </div>
     <div class="btn-row">
-      <div class="btn font-size-17">
+      <div class="btn font-size-17" @click="addLessonPair">
         {{ $t('variant.next') }}
       </div>
     </div>
@@ -83,12 +89,85 @@
 </template>
 
 <script>
+import {mapMutations} from "vuex";
+
 export default {
   name: "index",
   data(){
     return{
+      id: this.$route.params.test,
       lang: 0,
+      lessonPairs: [],
+      test_info: null,
+      lessons: null,
+      isError: false,
+      isLoading: true,
     }
+  },
+  computed: {
+    currentUser(){
+      return this.$store.state.user.user
+    },
+  },
+  mounted() {
+    this.getTestInfo()
+  },
+  methods: {
+    ...mapMutations({
+      setLoader: 'test/SET_LOADER'
+    }),
+    async addLessonPair(){
+      this.isError = false
+      if (!this.lessons){
+        this.isError = true
+        this.$toast.error(this.$t('variant.select_subject').toString())
+        return;
+      }
+
+      if (!this.isError){
+        this.setLoader(true)
+        try {
+          await this.$axios.put(`quizzes/add-lesson-pairs/${this.id}/`, {
+            lessons: this.lessons
+          })
+          await this.$router.push(this.localePath({path: `/ent/${this.id}/test-info`}))
+        } catch (e) {
+          alert(e)
+        } finally {
+          this.setLoader(false)
+        }
+      }
+    },
+    async getTestInfo() {
+      try {
+        const {data} = await this.$axios.get(`quizzes/student-test/${this.id}/`)
+        if (data) {
+          this.test_info = data
+          if (data.status !== 'NOT_PASSED' || data.lessons !== null){
+            await this.$router.push(this.localePath({path: `/ent/${this.id}/test-info`}))
+          }else{
+            await this.getLessonPair()
+          }
+        }
+      } catch (e) {
+        alert(e)
+      } finally {
+        this.isLoading = false
+      }
+    },
+    async getLessonPair() {
+      this.setLoader(true)
+      try {
+        const {data} = await this.$axios.get('/quizzes/lesson-pairs/')
+        if (data) {
+          this.lessonPairs = data
+        }
+      } catch (e) {
+        alert(e)
+      } finally {
+        this.setLoader(false)
+      }
+    },
   },
 }
 </script>
@@ -134,6 +213,10 @@ export default {
       max-width: 500px;
       width: 100%;
       padding-bottom: 6px;
+
+      &.error{
+        border-bottom-color: red;
+      }
 
       &:focus {
         outline: none;
