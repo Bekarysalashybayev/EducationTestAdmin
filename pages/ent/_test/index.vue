@@ -76,7 +76,7 @@
                 v-for="(lesson, i) in lessonPairs"
                 :key="i"
         >
-          {{ lesson['lesson_1']['name'] + " / " + lesson['lesson_2']['name'] }}
+          {{ getLessonName(lesson) }}
         </option>
       </select>
     </div>
@@ -116,6 +116,16 @@ export default {
     ...mapMutations({
       setLoader: 'test/SET_LOADER'
     }),
+    getLessonName(lesson){
+      let lessonName = ""
+      if (lesson["lesson_1"] && lesson["lesson_1"]["name"]){
+        lessonName = lessonName + lesson["lesson_1"]["name"]
+      }
+      if (lesson["lesson_2"] && lesson["lesson_2"]["name"]){
+        lessonName = lessonName + " / " + lesson["lesson_2"]["name"]
+      }
+      return lessonName
+    },
     async addLessonPair(){
       this.isError = false
       if (!this.lessons){
