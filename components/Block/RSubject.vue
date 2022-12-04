@@ -10,36 +10,38 @@
     <div class="description font-size-17">
       <span>{{ $t('result.q_score') }}</span> {{ subject['q_score'] }}
     </div>
-    <div class="table">
-      <table>
-        <tbody>
-        <tr>
-          <td>
-            {{ $t('result.q_number') }}
-          </td>
-          <td v-for="i in subject['test'].length" :key="i">
-            {{ i }}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            {{ $t('result.answer') }}
-          </td>
-          <td v-for="(item, i) in subject['test']" :key="`s-${i}`">
-            {{ item.answer }}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            {{ $t('result.score') }}
-          </td>
-          <td v-for="(item, i) in subject['test']" :key="`sc-${i}`">
-            {{ item.score }}
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+    <br>
+    <hr>
+<!--    <div class="table">-->
+<!--      <table>-->
+<!--        <tbody>-->
+<!--        <tr>-->
+<!--          <td>-->
+<!--            {{ $t('result.q_number') }}-->
+<!--          </td>-->
+<!--          <td v-for="i in subject['test'].length" :key="i">-->
+<!--            {{ i }}-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td>-->
+<!--            {{ $t('result.answer') }}-->
+<!--          </td>-->
+<!--          <td v-for="(item, i) in subject['test']" :key="`s-${i}`">-->
+<!--            {{ item.answer }}-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td>-->
+<!--            {{ $t('result.score') }}-->
+<!--          </td>-->
+<!--          <td v-for="(item, i) in subject['test']" :key="`sc-${i}`">-->
+<!--            {{ item.score }}-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--      </table>-->
+<!--    </div>-->
   </div>
 </template>
 
