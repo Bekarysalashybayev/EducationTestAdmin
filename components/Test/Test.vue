@@ -183,11 +183,12 @@ export default {
   color: #000000;
   text-align: left;
   margin-bottom: 30px;
-}
-.Test__content-header >>> img{
-  float: unset!important;
-  width: 100% !important;
-  height: auto!important;
+
+  &::v-deep{
+    img{
+      float: unset!important;
+    }
+  }
 }
 .answer{
   position: relative;
