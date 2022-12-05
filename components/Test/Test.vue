@@ -285,4 +285,7 @@ span:hover, .answer.active span{
   text-decoration: underline;
   cursor: pointer;
 }
+table{
+  max-width: 100%!important;
+}
 </style>

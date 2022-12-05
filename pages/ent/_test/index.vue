@@ -58,15 +58,15 @@
     <div class="sub-title mt-50 font-size-17">
       {{ $t('variant.s_title_3') }}
     </div>
-<!--    <div class="select">-->
-<!--      <select class="font-size-17" v-model="lang">-->
-<!--        <option :value="null" disabled selected>-->
-<!--          {{ $t('variant.select_lang') }}-->
-<!--        </option>-->
-<!--        <option value="0">Қазақша</option>-->
-<!--        <option value="1">Русский</option>-->
-<!--      </select>-->
-<!--    </div>-->
+    <!--    <div class="select">-->
+    <!--      <select class="font-size-17" v-model="lang">-->
+    <!--        <option :value="null" disabled selected>-->
+    <!--          {{ $t('variant.select_lang') }}-->
+    <!--        </option>-->
+    <!--        <option value="0">Қазақша</option>-->
+    <!--        <option value="1">Русский</option>-->
+    <!--      </select>-->
+    <!--    </div>-->
     <div class="select">
       <select :class="['font-size-17', {error: isError && !lessons}]" v-model="lessons">
         <option :value="null" disabled selected>
@@ -93,8 +93,8 @@ import {mapMutations} from "vuex";
 
 export default {
   name: "index",
-  data(){
-    return{
+  data() {
+    return {
       id: this.$route.params.test,
       lang: 0,
       lessonPairs: [],
@@ -105,7 +105,7 @@ export default {
     }
   },
   computed: {
-    currentUser(){
+    currentUser() {
       return this.$store.state.user.user
     },
   },
@@ -116,25 +116,25 @@ export default {
     ...mapMutations({
       setLoader: 'test/SET_LOADER'
     }),
-    getLessonName(lesson){
+    getLessonName(lesson) {
       let lessonName = ""
-      if (lesson["lesson_1"] && lesson["lesson_1"]["name"]){
+      if (lesson["lesson_1"] && lesson["lesson_1"]["name"]) {
         lessonName = lessonName + lesson["lesson_1"]["name"]
       }
-      if (lesson["lesson_2"] && lesson["lesson_2"]["name"]){
+      if (lesson["lesson_2"] && lesson["lesson_2"]["name"]) {
         lessonName = lessonName + " / " + lesson["lesson_2"]["name"]
       }
       return lessonName
     },
-    async addLessonPair(){
+    async addLessonPair() {
       this.isError = false
-      if (!this.lessons){
+      if (!this.lessons) {
         this.isError = true
         this.$toast.error(this.$t('variant.select_subject').toString())
         return;
       }
 
-      if (!this.isError){
+      if (!this.isError) {
         this.setLoader(true)
         try {
           await this.$axios.put(`quizzes/add-lesson-pairs/${this.id}/`, {
@@ -153,9 +153,9 @@ export default {
         const {data} = await this.$axios.get(`quizzes/student-test/${this.id}/`)
         if (data) {
           this.test_info = data
-          if (data.status !== 'NOT_PASSED' || data.lessons !== null){
+          if (data.status !== 'NOT_PASSED' || data.lessons !== null) {
             await this.$router.push(this.localePath({path: `/ent/${this.id}/test-info`}))
-          }else{
+          } else {
             await this.getLessonPair()
           }
         }
@@ -190,10 +190,12 @@ export default {
 .mt-50 {
   margin-top: rem(50);
 }
-.btn-row{
+
+.btn-row {
   margin-top: rem(50);
   display: flex;
   justify-content: center;
+
   .btn {
     padding: 10px rem(50);
     text-align: center;
@@ -224,7 +226,7 @@ export default {
       width: 100%;
       padding-bottom: 6px;
 
-      &.error{
+      &.error {
         border-bottom-color: red;
       }
 
