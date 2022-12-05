@@ -9,6 +9,7 @@
         <div class="form__group-control">
           <input :class="{error: (error.has && !form.iin) || (error.has && (form.iin.length < 11 || form.iin.length > 12)) }"
                  type="number" id="iin"
+                 ref="username"
                  v-model="form.iin"
                  required>
           <label class="form__group-control-label" for="iin">{{ $t('login.iin') }}</label>
@@ -90,6 +91,7 @@ export default {
       isModal: false
     }
   },
+
   methods: {
     ...mapMutations({
       SET_LOADER: 'test/SET_LOADER'
@@ -216,6 +218,14 @@ export default {
             color: $main_color;
           }
 
+          &:-webkit-autofill{
+            background-color: $white;
+          }
+          &:-webkit-autofill ~ label{
+            top: -10px;
+            left: 0;
+            color: #686868;
+          }
           &:not(:focus):valid ~ label {
             color: #686868;
           }
