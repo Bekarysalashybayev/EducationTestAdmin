@@ -15,7 +15,7 @@ export default {
   login: {
     auth_error: "Error while authenticating",
     title: "Вход в систему",
-    iin: "ИИН",
+    iin: "ИИН или Номер телефона",
     pass: "Пароль",
     privacy: {
       text1: "Выполняя вход, вы соглашаетесь с нашими",

@@ -7,7 +7,7 @@
       </div>
       <form class="form__group" @submit.prevent="checkForm">
         <div class="form__group-control">
-          <input :class="{error: (error.has && !form.iin) || (error.has && form.iin.length !== 12) }"
+          <input :class="{error: (error.has && !form.iin) || (error.has && (form.iin.length < 11 || form.iin.length > 12)) }"
                  type="number" id="iin"
                  v-model="form.iin"
                  required>
@@ -103,7 +103,7 @@ export default {
     },
     checkForm() {
       this.error.has = false
-      if (!this.form.iin || this.form.iin.length !== 12) {
+      if (!this.form.iin || this.form.iin.length < 11 || this.form.iin.length > 12) {
         this.error.has = true
         return;
       }
