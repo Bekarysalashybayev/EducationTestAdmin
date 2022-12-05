@@ -117,6 +117,7 @@ export default {
       if (!this.isEditing) return
       event.preventDefault()
       event.returnValue = ""
+      this.saveAnswer(this.lessons[this.Lesson].id)
       if (typeof window !== 'undefined') {
         if (!window.confirm("Leave without saving?")) {
           return;
