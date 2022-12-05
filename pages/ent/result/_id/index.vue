@@ -4,10 +4,10 @@
       {{ $t('result.title') }}
     </div>
     <div class="all-score font-size-24">
-      <span>{{ total }}</span> / 140
+      <span>{{ result.total }}</span> / 140
     </div>
     <r-subject v-for="(r, i) in result.lessons" :key="i"
-               :subject="{ id: r.id, r_name: r.name, q_count: r['sum_of_questions'], q_score: r['score']}"/>
+               :subject="{ id: r.id, r_name: r.name, q_count: r['sum_of_questions'], q_score: r['correct_point']}"/>
   </div>
 </template>
 
