@@ -1,4 +1,3 @@
-dropdown.vue
 <template>
   <dropdown class="language__dropdown" ref="dropdown">
     <template #header>
