@@ -1,5 +1,14 @@
 import {
-  BurgerIcon, LogoutIcon, PastTestIcon, RCorrectIcon, RulesIcon, RWrongIcon, UserIcon,
+  BurgerIcon,
+  formCityIcon,
+  formPassIcon,
+  formUserIcon,
+  LogoutIcon,
+  PastTestIcon,
+  RCorrectIcon,
+  RulesIcon,
+  RWrongIcon,
+  UserIcon,
 } from "./own";
 
 
@@ -10,5 +19,8 @@ export default {
   RulesIcon,
   LogoutIcon,
   RCorrectIcon,
-  RWrongIcon
+  RWrongIcon,
+  formUserIcon,
+  formPassIcon,
+  formCityIcon
 }

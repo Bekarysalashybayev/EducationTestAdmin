@@ -14,7 +14,7 @@ export default {
   },
   login: {
     auth_error: "Аутентификация қатесі",
-    title: "Жүйеге кіру",
+    title: "Логин",
     iin: "ЖСН немесе Телефон нөмірі",
     pass: "Құпия сөз",
     privacy: {
@@ -111,5 +111,20 @@ export default {
       back: "Артқа",
     },
     home: "Басты бетке оралу"
+  },
+  registration: {
+    phone: "Номер телефона",
+    title: "Регистрация",
+    confirm_pass: "Подтверждение пароля",
+    pass: "Введите пароль",
+    pass_1: "Подтвердите пароль",
+    city: "Город:",
+    select_city: "Выберите город",
+    btn_text: "Регистрация",
+    pass_error: "пароли не совпадают",
+    login_error: "учетная запись с таким номером существует",
+    login_count_error: "Enter valid phone number",
+    success: "Success",
+
   },
 }

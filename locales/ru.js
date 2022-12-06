@@ -14,7 +14,7 @@ export default {
   },
   login: {
     auth_error: "Ошибка при авторизации",
-    title: "Вход в систему",
+    title: "Логин",
     iin: "ИИН или Номер телефона",
     pass: "Пароль",
     privacy: {
