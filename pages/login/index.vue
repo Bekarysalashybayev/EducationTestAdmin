@@ -147,6 +147,7 @@ export default {
           }
         })
         this.$toast.success(this.$t('login.success').toString())
+        await this.$router.push(this.localePath('/ent'))
       } catch (er) {
         if (er.response && er.response.data && er.response.data.detail) {
           this.$toast.error(er.response.data.detail)
