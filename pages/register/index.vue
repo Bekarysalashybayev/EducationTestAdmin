@@ -11,7 +11,8 @@
         </nuxt-link>
       </div>
       <form class="form__group" @submit.prevent="checkForm">
-        <div :class="['form__group-control', {error: (error.has && !form.phone) || (error.has && form.phone.length !== 11) }]">
+        <div
+          :class="['form__group-control', {error: (error.has && !form.phone) || (error.has && form.phone.length !== 11) }]">
           <label class="form__group-control-label" for="phone">{{ $t('registration.phone') }}</label>
           <div :class="['input']">
             <input
@@ -29,6 +30,34 @@
           </div>
           <div class="error-text" v-else-if="error.has && form.phone.length !== 11">
             {{ $t('registration.login_count_error') }}
+          </div>
+        </div>
+        <div :class="['form__group-control', {error: error.has && !form.first_name }]">
+          <label class="form__group-control-label" for="name">{{ $t('registration.name') }}</label>
+          <div :class="['input']">
+            <input
+              type="text" id="name"
+              ref="name"
+              v-model="form.first_name"
+              :placeholder="$t('registration.enter_name')"
+              required>
+            <div class="icon">
+              <d-icon name="formUserIcon"/>
+            </div>
+          </div>
+        </div>
+        <div :class="['form__group-control', {error: error.has && !form.last_name }]">
+          <label class="form__group-control-label" for="name">{{ $t('registration.last_name') }}</label>
+          <div :class="['input']">
+            <input
+              type="text" id="name"
+              ref="name"
+              v-model="form.last_name"
+              :placeholder="$t('registration.enter_last_name')"
+              required>
+            <div class="icon">
+              <d-icon name="formUserIcon"/>
+            </div>
           </div>
         </div>
         <div :class="['form__group-control password', {error: error.has && !form.password} ]">
@@ -107,6 +136,8 @@ export default {
         password: null,
         c_password: null,
         city: null,
+        first_name: "",
+        last_name: "",
       },
       error: {
         name: "",
@@ -119,8 +150,8 @@ export default {
     ...mapMutations({
       SET_LOADER: 'test/SET_LOADER'
     }),
-    selectCity(){
-      if (this.form.city === "default"){
+    selectCity() {
+      if (this.form.city === "default") {
         this.form.city = null
       }
     },
@@ -136,6 +167,14 @@ export default {
       this.error.name = ""
 
       if (!this.form.phone || this.form.phone.length !== 11) {
+        this.error.has = true
+        return;
+      }
+      if (!this.form.first_name) {
+        this.error.has = true
+        return;
+      }
+      if (!this.form.last_name) {
         this.error.has = true
         return;
       }
@@ -156,9 +195,11 @@ export default {
       try {
         await this.$axios.post('user/register/', {
             phone: this.form.phone,
-            password: this.form.password
+            password: this.form.password,
+            first_name: this.form.first_name,
+            last_name: this.form.last_name,
           }
-         )
+        )
         this.$toast.success(this.$t('registration.success').toString())
         await this.$router.push(this.localePath("/login"))
       } catch (er) {
@@ -178,13 +219,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.error-text{
+.error-text {
   color: red;
   position: absolute;
   top: calc(100% + 5px);
   font-size: 13px;
   line-height: 1;
 }
+
 .login {
   display: flex;
   flex-direction: column;
@@ -293,12 +335,14 @@ export default {
           }
 
         }
+
         &.error {
-          input{
+          input {
             border-bottom-color: $red !important;
           }
-          label{
-            color:  $red !important;
+
+          label {
+            color: $red !important;
           }
         }
 

@@ -125,6 +125,9 @@ export default {
     login_error: "учетная запись с таким номером существует",
     login_count_error: "Enter valid phone number",
     success: "Success",
-
+    name: "Имя",
+    enter_name: "ведите имя",
+    last_name: "Фамилия",
+    enter_last_name: "ведите фамилию",
   },
 }
