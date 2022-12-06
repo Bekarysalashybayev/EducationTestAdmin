@@ -11,6 +11,7 @@ export default {
     pass: "Пройти тест",
     rule: "Правила",
     logout: "Выход",
+    instruction: "Оплата",
   },
   login: {
     auth_error: "Ошибка при авторизации",

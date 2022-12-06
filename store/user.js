@@ -1,5 +1,12 @@
 export const state = () => ({
-  user: {}
+  user: {
+    gmail: '',
+    avatar: '',
+    first_name: '',
+    last_name: '',
+    middle_name: '',
+    iin: '',
+  }
 })
 
 export const  mutations = {
@@ -9,6 +16,7 @@ export const  mutations = {
 }
 export const actions = {
     authUser({commit}, user){
+      console.log(user)
       commit('SET_USER', user)
   },
 }

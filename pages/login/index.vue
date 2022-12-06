@@ -228,7 +228,7 @@ export default {
           font-size: 12px;
           line-height: 1.2;
           color: #686868;
-          margin-bottom: 15px;
+          margin-bottom: 5px;
           display: block;
         }
 

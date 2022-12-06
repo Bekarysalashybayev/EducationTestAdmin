@@ -4,7 +4,7 @@
       <div class="outer" @click="$emit('close')"></div>
       <div class="block">
         <div class="links">
-          <div class="links__user">
+          <div class="links__user" v-if="currentUser">
             <div class="links__user-icon">
               <d-icon name="UserIcon" :width="`100%`" :height="`100%`"/>
             </div>
@@ -65,19 +65,21 @@ export default {
           url: "ent/",
         },
         {
+          name: "instruction",
+          icon: "InstructionIcon",
+          url: "instruction/",
+        },
+        {
           name: "rule",
           icon: "RulesIcon",
           url: "rules/",
         }
       ],
-      currentUser: {
-        gmail: '',
-        avatar: '',
-        first_name: '',
-        last_name: '',
-        middle_name: '',
-        iin: '',
-      }
+    }
+  },
+  computed: {
+    currentUser() {
+      return this.$store.getters["user/getCurrentUser"]
     }
   },
   created() {
@@ -94,8 +96,7 @@ export default {
       try {
         const {data} = (await this.$axios.get('user/me/'))
         if (data){
-          this.currentUser = data
-          await this.$store.dispatch('user/authUser', this.currentUser)
+          await this.$store.dispatch('user/authUser', data)
         }
       }
       catch (e) {
