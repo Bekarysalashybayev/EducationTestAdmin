@@ -103,7 +103,7 @@ export default {
   data() {
     return {
       form: {
-        phone: null,
+        phone: "",
         password: null,
         c_password: null,
         city: null,
@@ -239,7 +239,7 @@ export default {
       &-control {
         position: relative;
         width: 100%;
-        margin-top: rem(50);
+        margin-top: rem(35);
 
         &:first-child {
           margin-top: 0;

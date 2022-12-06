@@ -216,7 +216,7 @@ export default {
       &-control {
         position: relative;
         width: 100%;
-        margin-top: rem(50);
+        margin-top: rem(35);
 
         &:first-child {
           margin-top: 0;
