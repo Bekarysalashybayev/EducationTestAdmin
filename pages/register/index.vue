@@ -109,8 +109,8 @@
               <option value="default">
                 ----
               </option>
-              <option value="">
-                Almaty
+              <option :value="city.id" v-for="(city, i) in cityList">
+                {{ city.name }}
               </option>
             </select>
             <div class="icon">
@@ -150,9 +150,12 @@ export default {
         name: "",
         has: false,
       },
+      cityList: []
     }
   },
-
+  mounted() {
+    this.getCityList()
+  },
   methods: {
     ...mapMutations({
       SET_LOADER: 'test/SET_LOADER'
@@ -205,6 +208,7 @@ export default {
             password: this.form.password,
             first_name: this.form.first_name,
             last_name: this.form.last_name,
+            city: this.form.city
           }
         )
         this.$toast.success(this.$t('registration.success').toString())
@@ -218,6 +222,19 @@ export default {
           this.$toast.error(this.$t('default.server_error').toString())
         }
       } finally {
+        this.SET_LOADER(false)
+      }
+    },
+    async getCityList(){
+      this.SET_LOADER(true)
+      try {
+        const {data} = await this.$axios.get("user/city-list/")
+        if (data){
+          this.cityList = data
+        }
+      }catch (e){
+        alert(e)
+      }finally {
         this.SET_LOADER(false)
       }
     },
