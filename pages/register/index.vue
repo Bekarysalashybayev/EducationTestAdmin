@@ -32,64 +32,68 @@
             {{ $t('registration.login_count_error') }}
           </div>
         </div>
-        <div :class="['form__group-control', {error: error.has && !form.first_name }]">
-          <label class="form__group-control-label" for="name">{{ $t('registration.name') }}</label>
-          <div :class="['input']">
-            <input
-              type="text" id="name"
-              ref="name"
-              v-model="form.first_name"
-              :placeholder="$t('registration.enter_name')"
-              required>
-            <div class="icon">
-              <d-icon name="formUserIcon"/>
+        <div class="multi">
+          <div :class="['form__group-control', {error: error.has && !form.first_name }]">
+            <label class="form__group-control-label" for="name">{{ $t('registration.name') }}</label>
+            <div :class="['input']">
+              <input
+                type="text" id="name"
+                ref="name"
+                v-model="form.first_name"
+                :placeholder="$t('registration.enter_name')"
+                required>
+              <div class="icon">
+                <d-icon name="formUserIcon"/>
+              </div>
+            </div>
+          </div>
+          <div :class="['form__group-control', {error: error.has && !form.last_name }]">
+            <label class="form__group-control-label" for="name">{{ $t('registration.last_name') }}</label>
+            <div :class="['input']">
+              <input
+                type="text" id="name"
+                ref="name"
+                v-model="form.last_name"
+                :placeholder="$t('registration.enter_last_name')"
+                required>
+              <div class="icon">
+                <d-icon name="formUserIcon"/>
+              </div>
             </div>
           </div>
         </div>
-        <div :class="['form__group-control', {error: error.has && !form.last_name }]">
-          <label class="form__group-control-label" for="name">{{ $t('registration.last_name') }}</label>
-          <div :class="['input']">
-            <input
-              type="text" id="name"
-              ref="name"
-              v-model="form.last_name"
-              :placeholder="$t('registration.enter_last_name')"
-              required>
-            <div class="icon">
-              <d-icon name="formUserIcon"/>
+        <div class="multi">
+          <div :class="['form__group-control password', {error: error.has && !form.password} ]">
+            <label class="form__group-control-label" for="pass">{{ $t('login.pass') }}</label>
+            <div class="input">
+              <div class="icon">
+                <d-icon name="formPassIcon"/>
+              </div>
+              <input type="password" id="pass"
+                     v-model="form.password"
+                     ref="password"
+                     autocomplete="off"
+                     :placeholder="$t('registration.pass')"
+                     required>
+              <img src="../../assets/img/eyes.png" alt="" class="eyes" @click="togglePass('password')">
             </div>
           </div>
-        </div>
-        <div :class="['form__group-control password', {error: error.has && !form.password} ]">
-          <label class="form__group-control-label" for="pass">{{ $t('login.pass') }}</label>
-          <div class="input">
-            <div class="icon">
-              <d-icon name="formPassIcon"/>
+          <div :class="['form__group-control password', {error: error.has && form.password !== form.c_password} ]">
+            <label class="form__group-control-label" for="c_pass">{{ $t('registration.confirm_pass') }}</label>
+            <div class="input">
+              <div class="icon">
+                <d-icon name="formPassIcon"/>
+              </div>
+              <input type="password" id="c_pass"
+                     v-model="form.c_password"
+                     ref="c_password"
+                     :placeholder="$t('registration.pass_1')"
+                     required>
+              <img src="../../assets/img/eyes.png" alt="" class="eyes" @click="togglePass('c_password')">
             </div>
-            <input type="password" id="pass"
-                   v-model="form.password"
-                   ref="password"
-                   autocomplete="off"
-                   :placeholder="$t('registration.pass')"
-                   required>
-            <img src="../../assets/img/eyes.png" alt="" class="eyes" @click="togglePass('password')">
-          </div>
-        </div>
-        <div :class="['form__group-control password', {error: error.has && form.password !== form.c_password} ]">
-          <label class="form__group-control-label" for="c_pass">{{ $t('registration.confirm_pass') }}</label>
-          <div class="input">
-            <div class="icon">
-              <d-icon name="formPassIcon"/>
+            <div class="error-text" v-if="error.has && form.password !== form.c_password">
+              {{ $t('registration.pass_error') }}
             </div>
-            <input type="password" id="c_pass"
-                   v-model="form.c_password"
-                   ref="c_password"
-                   :placeholder="$t('registration.pass_1')"
-                   required>
-            <img src="../../assets/img/eyes.png" alt="" class="eyes" @click="togglePass('c_password')">
-          </div>
-          <div class="error-text" v-if="error.has && form.password !== form.c_password">
-            {{ $t('registration.pass_error') }}
           </div>
         </div>
         <div class="form__group-control">
@@ -273,6 +277,16 @@ export default {
       }
     }
 
+    .multi {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .form__group-control {
+        flex: 0 0 45%;
+        margin-top: rem(35);
+      }
+    }
 
     &__group {
       width: 100%;
@@ -410,9 +424,29 @@ export default {
           flex: 0 0 50%;
         }
       }
+
+      label {
+        margin-bottom: 5px;
+      }
+
+      .multi {
+        display: flex;
+        flex-wrap: wrap;
+
+        .form__group-control {
+          flex: 0 0 100%;
+        }
+      }
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .error-text {
+    font-size: 10px;
+  }
+}
+
 
 .verification-btn {
   display: flex;
