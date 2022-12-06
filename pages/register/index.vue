@@ -201,7 +201,7 @@ export default {
       this.SET_LOADER(true)
       try {
         await this.$axios.post('user/register/', {
-            phone: this.form.phone,
+            phone: 7 + this.form.phone,
             password: this.form.password,
             first_name: this.form.first_name,
             last_name: this.form.last_name,
