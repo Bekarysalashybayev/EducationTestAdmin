@@ -12,14 +12,17 @@
       </div>
       <form class="form__group" @submit.prevent="checkForm">
         <div
-          :class="['form__group-control', {error: (error.has && !form.phone) || (error.has && form.phone.length !== 11) }]">
+          :class="['form__group-control phone', {error: (error.has && !form.phone) || (error.has && form.phone.length !== 10) }]">
           <label class="form__group-control-label" for="phone">{{ $t('registration.phone') }}</label>
-          <div :class="['input']">
+          <div class="input">
+            <div class="number">
+              +7
+            </div>
             <input
               type="number" id="phone"
               ref="username"
               v-model="form.phone"
-              placeholder="х ххх ххх хх хх"
+              placeholder=" ххх ххх хх хх"
               required>
             <div class="icon">
               <d-icon name="formUserIcon"/>
@@ -28,7 +31,7 @@
           <div class="error-text" v-if="error.has&& error.name === 'login'">
             {{ $t('registration.login_error') }}
           </div>
-          <div class="error-text" v-else-if="error.has && form.phone.length !== 11">
+          <div class="error-text" v-else-if="error.has && form.phone.length !== 10">
             {{ $t('registration.login_count_error') }}
           </div>
         </div>
@@ -48,10 +51,10 @@
             </div>
           </div>
           <div :class="['form__group-control', {error: error.has && !form.last_name }]">
-            <label class="form__group-control-label" for="name">{{ $t('registration.last_name') }}</label>
+            <label class="form__group-control-label" for="l_name">{{ $t('registration.last_name') }}</label>
             <div :class="['input']">
               <input
-                type="text" id="name"
+                type="text" id="l_name"
                 ref="name"
                 v-model="form.last_name"
                 :placeholder="$t('registration.enter_last_name')"
@@ -170,7 +173,7 @@ export default {
       this.error.has = false
       this.error.name = ""
 
-      if (!this.form.phone || this.form.phone.length !== 11) {
+      if (!this.form.phone || this.form.phone.length !== 10) {
         this.error.has = true
         return;
       }
@@ -340,7 +343,7 @@ export default {
             &:focus {
               outline: none;
               border-bottom-color: $main_color;
-              border-bottom-width: 2px;
+              border-bottom-width: 1px;
             }
 
             &:-webkit-autofill {
@@ -349,7 +352,18 @@ export default {
           }
 
         }
-
+        &.phone{
+          .number{
+            position: absolute;
+            bottom: 6px;
+            left: 25px;
+            font-size: 16px;
+            line-height: 1.2;
+          }
+          input{
+            padding-left: 48px;
+          }
+        }
         &.error {
           input {
             border-bottom-color: $red !important;
