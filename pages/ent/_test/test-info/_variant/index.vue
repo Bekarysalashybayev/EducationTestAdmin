@@ -1,61 +1,61 @@
 <template>
-<div class="ent-test">
-  <div class="test-page">
-    <div class="test__pass-content">
-      <div class="test__pass-header">
-        <div class="title font-size-17">
-          {{ $t('pass.title') }}
+  <div class="ent-test">
+    <div class="test-page">
+      <div class="test__pass-content">
+        <div class="test__pass-header">
+          <div class="title font-size-17">
+            {{ $t('pass.title') }}
+          </div>
+          <div class="time font-size-17">
+            {{ $t('pass.timeout') }} <span> <timer :date="newD" :stop="finish" @timeStop="timeStop"/></span>
+          </div>
         </div>
-        <div class="time font-size-17">
-          {{ $t('pass.timeout') }} <span> <timer :date="newD" :stop="finish" @timeStop="timeStop"/></span>
-        </div>
-      </div>
-      <div class="test__pass-body" v-if="lessons.length>0">
-        <div class="lessons_type">
-          <lessons :lesson="{currentLesson: Lesson, currentQuestion: currentQuestion}"
-                   :lessons="lessons"
-                   :questions="questions"
-                   @selectQuestion="selectQuestion"
-                   @selectLesson="selectLesson"
-          />
-        </div>
-        <div class="question__type">
-          <test
-            :question="{lesson: Lesson, question: currentQuestion,  lessons: lessons, questionAnswer: questionAnswer}"
-            @nextQuestion="nextQuestion"
-            @prevQuestion="prevQuestion"
-            @nextLesson="nextLesson"
-            @selectAnswer="selectAnswer"
-            @finish="finishModal=true"
-            ref="testComponent"
-            @clearChoice="clearChoice"
-          />
-          <button @click="finishModal=true" class="finish-test-last finish-test-last-ent">
-            {{ $t('pass.finish') }}
-          </button>
+        <div class="test__pass-body" v-if="lessons.length>0">
+          <div class="lessons_type">
+            <lessons :lesson="{currentLesson: Lesson, currentQuestion: currentQuestion}"
+                     :lessons="lessons"
+                     :questions="questions"
+                     @selectQuestion="selectQuestion"
+                     @selectLesson="selectLesson"
+            />
+          </div>
+          <div class="question__type">
+            <test
+              :question="{lesson: Lesson, question: currentQuestion,  lessons: lessons, questionAnswer: questionAnswer}"
+              @nextQuestion="nextQuestion"
+              @prevQuestion="prevQuestion"
+              @nextLesson="nextLesson"
+              @selectAnswer="selectAnswer"
+              @finish="finishModal=true"
+              ref="testComponent"
+              @clearChoice="clearChoice"
+            />
+            <button @click="finishModal=true" class="finish-test-last finish-test-last-ent">
+              {{ $t('pass.finish') }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
+    <modal-window v-if="finishModal" @close="finishModal=false">
+      <template #content>
+        <div class="modal-delete-text">
+          <div class="modal-text">
+            {{ $t('pass.finish_confirm') }}
+          </div>
+          <div class="common-buttons">
+            <button @click="finishTest">{{ $t('pass.finish') }}</button>
+            <button @click="finishModal=false">{{ $t('pass.cancel') }}</button>
+          </div>
+        </div>
+      </template>
+    </modal-window>
   </div>
-  <modal-window v-if="finishModal" @close="finishModal=false">
-    <template #content>
-      <div class="modal-delete-text">
-        <div class="modal-text">
-          {{ $t('pass.finish_confirm') }}
-        </div>
-        <div class="common-buttons">
-          <button @click="finishTest">{{ $t('pass.finish') }}</button>
-          <button @click="finishModal=false">{{ $t('pass.cancel') }}</button>
-        </div>
-      </div>
-    </template>
-  </modal-window>
-</div>
 </template>
 
 <script>
 
-import { mapMutations } from 'vuex'
+import {mapMutations} from 'vuex'
 import Lessons from "@/components/Test/Lessons";
 import ModalWindow from "@/components/core/ModalWindow";
 import Timer from "@/components/core/Timer";
@@ -65,8 +65,8 @@ export default {
   name: "index",
   components: {Lessons, Test, ModalWindow, Timer},
   layout: 'blank',
-  data(){
-    return{
+  data() {
+    return {
       id: this.$route.params.test,
       test_id: this.$route.params.variant,
       finish: false,
@@ -82,7 +82,7 @@ export default {
       is_Finished: false,
       lessons: [],
       questions: [],
-      state:  {},
+      state: {},
       loading: true,
       isEditing: true
     }
@@ -97,24 +97,28 @@ export default {
   },
 
   beforeRouteLeave(to, from, next) {
-    if (this.isEditing) {
+    if (!this.is_Finished) {
       if (typeof window !== 'undefined') {
         if (!window.confirm("Завершить и выйти?")) {
           return;
+        }else{
+          this.saveAnswer(this.lessons[this.Lesson].id)
         }
       }
     }
     next();
   },
   beforeDestroy() {
-    this.saveAnswer(this.lessons[this.Lesson].id)
+    if (!this.is_Finished) {
+      this.saveAnswer(this.lessons[this.Lesson].id)
+    }
   },
   created() {
     this.getLessons()
   },
-  methods:{
+  methods: {
     preventNav(event) {
-      if (!this.isEditing) return
+      if (this.is_Finished) return;
       event.preventDefault()
       event.returnValue = ""
       this.saveAnswer(this.lessons[this.Lesson].id)
@@ -129,11 +133,10 @@ export default {
     }),
     async timeStop() {
       this.$toast.success('Ваше время истекло!')
-      await this.saveAnswer(this.lessons[this.Lesson].id)
       await this.finishTest()
     },
     async finishTest() {
-      this.isEditing = false
+      this.is_Finished = true
       await this.setLoader(true)
       await this.saveAnswer(this.lessons[this.Lesson].id)
       try {
@@ -142,52 +145,53 @@ export default {
         await this.$router.push(this.localePath({path: `/ent/result/${this.id}`}))
       } catch (e) {
         this.$toast.error('Ошибка!')
+      } finally {
+        this.setLoader(false)
       }
-      await this.setLoader(false)
     },
-    finishEnt(){
+    finishEnt() {
       this.finishModal = true
     },
-    selectQuestion(lesson, question, count){
-      if (this.currentQuestion != question){
+    selectQuestion(lesson, question, count) {
+      if (this.currentQuestion != question) {
         this.Lesson = lesson
         this.currentQuestion = question
         this.count = count
-        this.questionAnswer = this.questions[this.currentQuestion-1]
+        this.questionAnswer = this.questions[this.currentQuestion - 1]
         this.$refs.testComponent.reRender()
       }
     },
-    selectLesson(lesson){
-      if (this.Lesson != lesson){
+    selectLesson(lesson) {
+      if (this.Lesson != lesson) {
         this.currentQuestion = 1
         this.changeLesson(lesson)
       }
     },
-    changeLesson(lesson){
+    changeLesson(lesson) {
       this.saveAnswer(this.lessons[this.Lesson].id)
       this.Lesson = lesson
       this.getQuestionsByLessonID(this.lessons[this.Lesson].id)
     },
-    prevQuestion(){
-      if(this.currentQuestion>1){
+    prevQuestion() {
+      if (this.currentQuestion > 1) {
         this.currentQuestion = this.currentQuestion - 1
-        this.questionAnswer = this.questions[this.currentQuestion-1]
+        this.questionAnswer = this.questions[this.currentQuestion - 1]
       }
     },
-    nextQuestion(){
-      if(this.currentQuestion < this.lessons[this.Lesson].sum_of_questions){
+    nextQuestion() {
+      if (this.currentQuestion < this.lessons[this.Lesson].sum_of_questions) {
         this.currentQuestion = this.currentQuestion + 1
-        this.questionAnswer = this.questions[this.currentQuestion-1]
+        this.questionAnswer = this.questions[this.currentQuestion - 1]
       }
     },
-    clearChoice(){
-      this.questions[this.currentQuestion-1].user_ans = []
+    clearChoice() {
+      this.questions[this.currentQuestion - 1].user_ans = []
     },
-    selectAnswer(selectedAnswer){
-      this.questions[this.currentQuestion-1].user_ans = selectedAnswer
+    selectAnswer(selectedAnswer) {
+      this.questions[this.currentQuestion - 1].user_ans = selectedAnswer
     },
-    nextLesson(){
-      if (this.Lesson<this.lessons.length-1){
+    nextLesson() {
+      if (this.Lesson < this.lessons.length - 1) {
         this.currentQuestion = 1
         this.selectedAns = []
         this.changeLesson(this.Lesson + 1)
@@ -195,18 +199,18 @@ export default {
     },
     async getLessons() {
       try {
-        const data =  (await this.$axios.get(`/quizzes/ent-lessons/${this.id}/`)).data
+        const data = (await this.$axios.get(`/quizzes/ent-lessons/${this.id}/`)).data
         this.lessons = data.lessons
         const dt = new Date();
-        dt.setHours( dt.getHours() + data.duration.hour );
-        dt.setMinutes( dt.getMinutes() + data.duration.minute );
-        dt.setSeconds( dt.getSeconds() + data.duration.seconds );
+        dt.setHours(dt.getHours() + data.duration.hour);
+        dt.setMinutes(dt.getMinutes() + data.duration.minute);
+        dt.setSeconds(dt.getSeconds() + data.duration.seconds);
         this.newD = dt
         await this.getQuestionsByLessonID(this.lessons[this.Lesson].id)
-      }catch (er) {
-        if (er.response && er.response.data.detail){
+      } catch (er) {
+        if (er.response && er.response.data.detail) {
           this.$toast.error(er.response.data.detail)
-          this.isEditing=false
+          this.is_Finished = true
           await this.$router.push(this.localePath({path: `/ent`}))
         }
       }
@@ -214,23 +218,23 @@ export default {
     },
     async getQuestionsByLessonID(lesson_id) {
       this.setLoader(true)
-      try{
-        const {data} =  (await this.$axios.get(`/quizzes/ent-questions/${this.test_id}/${lesson_id}/`))
-        if (data){
+      try {
+        const {data} = (await this.$axios.get(`/quizzes/ent-questions/${this.test_id}/${lesson_id}/`))
+        if (data) {
           this.questions = data
           this.currentQuestion = 1
           this.questionAnswer = this.questions[this.currentQuestion - 1]
         }
-      }catch (e) {
+      } catch (e) {
         alert(e)
-      }finally {
+      } finally {
         this.setLoader(false)
       }
       this.$refs.testComponent.reRender()
     },
-    async saveAnswer(lessonID){
+    async saveAnswer(lessonID) {
       let result = []
-      for (let i=0; i<this.questions.length; i++){
+      for (let i = 0; i < this.questions.length; i++) {
         let el = {id: this.questions[i].id, user_ans: this.questions[i].user_ans}
         result.push(el)
       }
@@ -246,7 +250,8 @@ export default {
 
 <style scoped lang="scss">
 @import "assets/css/ent/PassTest.css";
-.test-page{
+
+.test-page {
   padding: rem(20)
 }
 </style>

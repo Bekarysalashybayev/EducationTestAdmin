@@ -16,7 +16,6 @@ export const  mutations = {
 }
 export const actions = {
     authUser({commit}, user){
-      console.log(user)
       commit('SET_USER', user)
   },
 }
