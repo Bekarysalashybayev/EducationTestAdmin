@@ -7,7 +7,8 @@
       <div class="block">
         <img src="../../assets/img/instr-1.png" alt="instr">
         <div class="text font-size-18">
-          {{ $t('instruction.text_1') }}
+          <p>{{ $t('instruction.text_1') }}</p>
+          <p>{{ $t('instruction.text_2') }}</p>
         </div>
       </div>
     </div>
@@ -18,7 +19,12 @@
       <div class="block">
         <img src="../../assets/img/instr-2.png" alt="instr">
         <div class="text font-size-18">
-          {{ $t('instruction.text_2') }}
+          <p>{{ $t('instruction.text_3') }}
+            <span>{{ currentUser.iin ? currentUser.iin : currentUser.phone }}</span>
+          </p>
+          <p>{{ $t('instruction.text_4') }}
+            <span>{{ currentUser.first_name + " " + currentUser.last_name }}</span>
+          </p>
         </div>
       </div>
     </div>
@@ -29,7 +35,8 @@
       <div class="block">
         <img src="../../assets/img/instr-3.png" alt="instr">
         <div class="text font-size-18">
-          {{ $t('instruction.text_3') }}
+          <p>{{ $t('instruction.text_5') }}</p>
+          <p>{{ $t('instruction.text_6') }}</p>
         </div>
       </div>
     </div>
@@ -38,7 +45,12 @@
 
 <script>
 export default {
-  name: "index"
+  name: "index",
+  computed: {
+    currentUser(){
+      return this.$store.getters["user/getCurrentUser"]
+    },
+  },
 }
 </script>
 
@@ -73,6 +85,18 @@ export default {
       img {
         width: 264px;
         margin-right: rem(30);
+      }
+      p{
+        margin-bottom: 10px;
+
+        span{
+          color: #005DAE;
+          font-weight: bold;
+        }
+
+        &:last-child{
+          margin-bottom: 0;
+        }
       }
     }
 
