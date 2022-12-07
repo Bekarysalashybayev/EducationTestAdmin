@@ -205,6 +205,7 @@ export default {
         await this.$axios.post('/quizzes/buy-test/')
         this.isSuccess = true
         await this.getTestList()
+        await this.authMe()
       } catch (e) {
         if (e.response.data.detail === "Баланс не достаточно") {
           this.isError = true
@@ -213,6 +214,18 @@ export default {
         }
       } finally {
         this.setLoader(false)
+      }
+    },
+    async authMe(){
+      try {
+        const {data} = (await this.$axios.get('user/me/'))
+        if (data){
+          await this.$store.dispatch('user/authUser', data)
+        }
+      }
+      catch (e) {
+        this.$toast.error(this.$t('login,auth_error').toString())
+        await this.logOut()
       }
     },
     async getTestList() {
