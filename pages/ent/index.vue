@@ -150,10 +150,7 @@
       icon="infoModalIcon"
       @close="isBuy=false">
       <div class="buy-modal">
-        <div class="m-title font-size-24">
-          {{ $t('buy_test.modal.title') }}
-        </div>
-        <div class="m-text font-size-20">
+        <div class="m-text mt-20 font-size-20">
           {{ $t('buy_test.modal.text') }}
         </div>
         <div class="m-btns">
@@ -263,7 +260,9 @@ export default {
   }
 
   .m-text {
-
+    &.mt-20{
+      margin: rem(30) 0 rem(10)!important;
+    }
   }
 
   .m-btn {
