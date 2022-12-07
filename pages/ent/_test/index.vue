@@ -58,15 +58,15 @@
     <div class="sub-title mt-50 font-size-17">
       {{ $t('variant.s_title_3') }}
     </div>
-    <!--    <div class="select">-->
-    <!--      <select class="font-size-17" v-model="lang">-->
-    <!--        <option :value="null" disabled selected>-->
-    <!--          {{ $t('variant.select_lang') }}-->
-    <!--        </option>-->
-    <!--        <option value="0">Қазақша</option>-->
-    <!--        <option value="1">Русский</option>-->
-    <!--      </select>-->
-    <!--    </div>-->
+        <div class="select">
+          <select :class="['font-size-17', {error: isError && ![0, 1].includes(lang)}]" v-model="lang">
+            <option :value="null" disabled selected>
+              {{ $t('variant.select_lang') }}
+            </option>
+            <option value="0">Қазақша</option>
+            <option value="1">Русский</option>
+          </select>
+        </div>
     <div class="select">
       <select :class="['font-size-17', {error: isError && !lessons}]" v-model="lessons">
         <option :value="null" disabled selected>
@@ -133,11 +133,17 @@ export default {
         this.$toast.error(this.$t('variant.select_subject').toString())
         return;
       }
+      if (![0, 1].includes(this.lang)) {
+        this.isError = true
+        this.$toast.error(this.$t('variant.select_lang').toString())
+        return;
+      }
 
       if (!this.isError) {
         this.setLoader(true)
         try {
           await this.$axios.put(`quizzes/add-lesson-pairs/${this.id}/`, {
+            lang: this.lang,
             lessons: this.lessons
           })
           await this.$router.push(this.localePath({path: `/ent/${this.id}/test-info`}))

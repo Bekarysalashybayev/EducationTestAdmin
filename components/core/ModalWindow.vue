@@ -1,6 +1,6 @@
 <template>
 <div class="modal__window">
-  <div class="modal__content scroll">
+  <div class="modal__content scroll" v-click-outside="close">
     <slot name="content"></slot>
   </div>
 </div>
@@ -14,6 +14,11 @@ export default {
   },
   beforeDestroy() {
     document.body.style.overflow = "auto"
+  },
+  methods: {
+    close(){
+      this.$emit('close')
+    },
   },
 }
 </script>
@@ -41,7 +46,7 @@ export default {
   max-height: calc(100vh - 50px);
   overflow-x: hidden;
   overflow-y: auto;
-  padding: 3rem;
+  padding: 30px;
   position: relative;
 }
 .scroll::-webkit-scrollbar {

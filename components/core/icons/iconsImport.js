@@ -1,5 +1,5 @@
 import {
-  BurgerIcon,
+  BurgerIcon, closeModalIcon, errorModalIcon,
   formCityIcon,
   formPassIcon,
   formUserIcon, InstructionIcon,
@@ -7,7 +7,7 @@ import {
   PastTestIcon,
   RCorrectIcon,
   RulesIcon,
-  RWrongIcon,
+  RWrongIcon, successModalIcon, testDurationIcon, testPriceIcon, testTypeIcon,
   UserIcon,
 } from "./own";
 
@@ -23,5 +23,11 @@ export default {
   RWrongIcon,
   formUserIcon,
   formPassIcon,
-  formCityIcon
+  formCityIcon,
+  testTypeIcon,
+  testDurationIcon,
+  testPriceIcon,
+  closeModalIcon,
+  successModalIcon,
+  errorModalIcon
 }

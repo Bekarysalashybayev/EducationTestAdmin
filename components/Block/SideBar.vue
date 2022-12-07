@@ -13,7 +13,10 @@
                 {{ currentUser.first_name + " " + currentUser.last_name + " " + currentUser.middle_name }}
               </div>
               <div class="links__user-data-iin">
-                {{ currentUser.iin }}
+                <span>ID:</span> {{ currentUser.iin }}
+              </div>
+              <div class="links__user-data-iin">
+                <span>{{ $t('side_bar.balance') }}</span>{{ currentUser.balance }}
               </div>
             </div>
           </div>
@@ -159,20 +162,23 @@ export default {
     width: 100%;
     height: 100%;
     background-color: $default_sb_bg_color;
-    overflow: hidden;
-    position: relative;
     z-index: 2;
+    position: relative;
 
-    &:hover {
-      overflow-y: auto;
-    }
 
     .links {
+      width: 100%;
+      height: 100%;
       padding-bottom: 60px;
+      overflow: hidden;
+      position: relative;
+
+      &:hover {
+        overflow-y: auto;
+      }
 
       &__user {
         display: flex;
-        align-items: center;
         padding: rem(20);
         border-bottom: 1px solid #A5A5A5;
 
@@ -201,6 +207,18 @@ export default {
             line-height: 1.2;
             letter-spacing: 0.05em;
             color: $midnight;
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+
+            &:first-child{
+              margin-top: 0;
+            }
+
+            span{
+              display: block;
+              width: 70px;
+            }
           }
         }
       }
@@ -239,6 +257,7 @@ export default {
         border-top: 1px solid #A5A5A5;
         background-color: $white;
       }
+
       &__logout .links__page-link{
         color: $red!important;
 

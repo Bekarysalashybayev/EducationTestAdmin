@@ -37,7 +37,7 @@
       </div>
     </div>
   </div>
-  <modal-window v-if="finishModal">
+  <modal-window v-if="finishModal" @close="finishModal=false">
     <template #content>
       <div class="modal-delete-text">
         <div class="modal-text">

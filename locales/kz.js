@@ -12,6 +12,7 @@ export default {
     rule: "Ережелер",
     logout: "Шығу",
     instruction: "Оплата",
+    balance: "Баланс:",
   },
   login: {
     auth_error: "Аутентификация қатесі",
@@ -136,5 +137,29 @@ export default {
     text_1: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores at commodi, nam odit omnis unde! A asperiores aspernatur consequuntur culpa cupiditate dolor earum, enim illo in iste iusto magni perspiciatis quisquam recusandae, repellendus rerum tempora temporibus ullam veritatis, vero. Dicta ea enim eum, expedita harum hic incidunt porro sequi tempore.",
     text_2: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores at commodi, nam odit omnis unde! A asperiores aspernatur consequuntur culpa cupiditate dolor earum, enim illo in iste iusto magni perspiciatis quisquam recusandae, repellendus rerum tempora temporibus ullam veritatis, vero. Dicta ea enim eum, expedita harum hic incidunt porro sequi tempore.",
     text_3: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores at commodi, nam odit omnis unde! A asperiores aspernatur consequuntur culpa cupiditate dolor earum, enim illo in iste iusto magni perspiciatis quisquam recusandae, repellendus rerum tempora temporibus ullam veritatis, vero. Dicta ea enim eum, expedita harum hic incidunt porro sequi tempore.",
-  }
+  },
+  buy_test: {
+    title: "Пробный тест ЕНТ",
+    buy: "Купить",
+    type: "Тип",
+    type_text: "Разовый",
+    duration: "Срок:",
+    duration_text: "1 неделя",
+    price: "Цена:",
+    success: {
+      title: "Поздравляем!",
+      text: "Вы успешно приобрели пакет!",
+    },
+    error: {
+      title: "Ошибка!",
+      text: "У Вас недостаточно средств.",
+      link: "Инструкция по покупке",
+    },
+    modal: {
+      title: " Note!",
+      text: "Точно хотите покупать?",
+      cancel: "Отмена",
+      confirm: "Да"
+    },
+  },
 }
