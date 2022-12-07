@@ -20,7 +20,7 @@
         <img src="../../assets/img/instr-2.png" alt="instr">
         <div class="text font-size-18">
           <p>{{ $t('instruction.text_3') }}
-            <span>{{ currentUser.iin ? currentUser.iin : currentUser.phone }}</span>
+            <span>{{ currentUser.user_id }}</span>
           </p>
           <p>{{ $t('instruction.text_4') }}
             <span>{{ currentUser.first_name + " " + currentUser.last_name }}</span>

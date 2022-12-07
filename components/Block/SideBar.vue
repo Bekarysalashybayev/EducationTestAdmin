@@ -13,7 +13,7 @@
                 {{ currentUser.first_name + " " + currentUser.last_name + " " + currentUser.middle_name }}
               </div>
               <div class="links__user-data-iin">
-                <span>ID:</span> {{ currentUser.iin }}
+                <span>ID:</span> {{ currentUser['user_id'] }}
               </div>
               <div class="links__user-data-iin">
                 <span>{{ $t('side_bar.balance') }}</span>{{ currentUser.balance }}

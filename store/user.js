@@ -6,6 +6,7 @@ export const state = () => ({
     last_name: '',
     middle_name: '',
     iin: '',
+    user_id: '',
   }
 })
 
