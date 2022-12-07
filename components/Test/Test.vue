@@ -185,7 +185,7 @@ export default {
   margin-bottom: 30px;
 
   &::v-deep{
-    img{
+    img, table{
       float: unset!important;
     }
   }
