@@ -33,7 +33,7 @@
                 {{ $t('buy_test.price') }}
               </span>
               <span>
-                500 ₸
+                250 ₸
               </span>
             </div>
           </div>
@@ -147,6 +147,7 @@
     </test-modal>
     <test-modal
       v-if="isBuy"
+      icon="infoModalIcon"
       @close="isBuy=false">
       <div class="buy-modal">
         <div class="m-title font-size-24">
@@ -156,11 +157,11 @@
           {{ $t('buy_test.modal.text') }}
         </div>
         <div class="m-btns">
-          <button class="m-btn cancel font-size-20" @click="isBuy=false">
-            {{ $t('buy_test.modal.cancel') }}
-          </button>
           <button class="m-btn font-size-20" @click="buyTest">
             {{ $t('buy_test.modal.confirm') }}
+          </button>
+          <button class="m-btn cancel font-size-20" @click="isBuy=false">
+            {{ $t('buy_test.modal.cancel') }}
           </button>
         </div>
       </div>
@@ -207,9 +208,13 @@ export default {
         await this.getTestList()
         await this.authMe()
       } catch (e) {
-        if (e.response.data.detail === "Баланс не достаточно") {
-          this.isError = true
-        } else {
+        if (e.response.data && e.response.data.detail){
+          if (e.response.data.detail === "Баланс не достаточно") {
+            this.isError = true
+          }else{
+            alert(e.response.data.detail)
+          }
+        }else {
           alert(e)
         }
       } finally {
@@ -270,7 +275,10 @@ export default {
     min-width: rem(140);
 
     &.cancel {
-      background-color: red;
+      background-color: #FFFFFF;
+      color: #005DAE;
+      border: 1px solid #005DAE;
+      margin-left: rem(30);
     }
   }
 }

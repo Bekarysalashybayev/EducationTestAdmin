@@ -2,7 +2,7 @@ import {
   BurgerIcon, closeModalIcon, errorModalIcon,
   formCityIcon,
   formPassIcon,
-  formUserIcon, InstructionIcon,
+  formUserIcon, infoModalIcon, InstructionIcon,
   LogoutIcon,
   PastTestIcon,
   RCorrectIcon,
@@ -29,5 +29,6 @@ export default {
   testPriceIcon,
   closeModalIcon,
   successModalIcon,
-  errorModalIcon
+  errorModalIcon,
+  infoModalIcon
 }
