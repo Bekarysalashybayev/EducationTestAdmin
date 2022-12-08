@@ -34,6 +34,11 @@ export default {
       }
     },
   },
+  mounted() {
+    if (typeof window !== 'undefined' && window.innerWidth < 1120) {
+      this.isOpen = false
+    }
+  },
 }
 </script>
 
