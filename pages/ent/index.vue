@@ -43,7 +43,7 @@
         </button>
       </div>
     </div>
-    <div class="title font-size-17 mt-20" v-if="old_tests.length">{{ $t('main.title_my') }}</div>
+    <div class="title font-size-17 mt-20">{{ $t('main.title_my') }}</div>
     <div class="test__list">
       <div class="test__list-block" v-for="(test, i) in new_tests" :key="`new-${i}`">
         <div class="test__list-block-content">
