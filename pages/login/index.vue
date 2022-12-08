@@ -11,14 +11,18 @@
         </nuxt-link>
       </div>
       <form class="form__group" @submit.prevent="checkForm">
-        <div :class="['form__group-control', {error: (error.has && !form.iin) || (error.has && (form.iin.length < 11 || form.iin.length > 12)) }]">
-          <label class="form__group-control-label" for="iin">{{ $t('login.iin') }}</label>
+        <div
+          :class="['form__group-control phone', {error: (error.has && !form.iin) || (error.has && form.iin.length !== 10) }]">
+          <label class="form__group-control-label" for="phone">{{ $t('registration.phone') }}</label>
           <div class="input">
+            <div class="number">
+              +7
+            </div>
             <input
-              type="number" id="iin"
+              type="number" id="phone"
               ref="username"
               v-model="form.iin"
-              placeholder="хххххх хххххх"
+              placeholder=" ххх ххх хх хх"
               required>
             <div class="icon">
               <d-icon name="formUserIcon"/>
@@ -125,7 +129,7 @@ export default {
     },
     checkForm() {
       this.error.has = false
-      if (!this.form.iin || this.form.iin.length < 11 || this.form.iin.length > 12) {
+      if (!this.form.iin || this.form.iin.length !== 10) {
         this.error.has = true
         return;
       }
@@ -142,7 +146,7 @@ export default {
       try {
         await this.$auth.loginWith('local', {
           data: {
-            iin: this.form.iin,
+            iin:  "7" + this.form.iin,
             password: this.form.password
           }
         })
@@ -253,7 +257,7 @@ export default {
             width: 100%;
             padding: 5px 5px 5px 25px;
 
-            &::placeholder{
+            &::placeholder {
               font-size: 14px;
               line-height: 1.2;
               color: #929292;
@@ -262,7 +266,7 @@ export default {
             &:focus {
               outline: none;
               border-bottom-color: $main_color;
-              border-bottom-width: 2px;
+              border-bottom-width: 1px;
             }
 
             &:-webkit-autofill {
@@ -270,10 +274,26 @@ export default {
             }
           }
         }
+
+        &.phone {
+          .number {
+            position: absolute;
+            bottom: 6px;
+            left: 25px;
+            font-size: 16px;
+            line-height: 1.2;
+          }
+
+          input {
+            padding-left: 48px;
+          }
+        }
+
         &.error {
-          input{
+          input {
             border-bottom-color: $red !important;
           }
+
           label {
             color: $red !important;
           }
