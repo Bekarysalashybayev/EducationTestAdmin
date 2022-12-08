@@ -2,7 +2,7 @@
   <div class="default-layout">
     <d-header @close="isOpen = !isOpen"/>
     <div :class="['default-layout__content', isOpen ? 'open' : 'close']">
-      <side-bar :is-open="isOpen" @close="isOpen = !isOpen"/>
+      <side-bar :is-open="isOpen" @close="isOpen = false"/>
       <nuxt/>
     </div>
     <loader :start="getGlobalLoader"/>
@@ -27,13 +27,13 @@ export default {
       return this.$store.state.test.loader
     },
   },
-  watch: {
-    async $route(to, from) {
-      if (typeof window !== 'undefined' && window.innerWidth < 1120) {
-        this.isOpen = false
-      }
-    },
-  },
+  // watch: {
+  //   async $route(to, from) {
+  //     if (typeof window !== 'undefined' && window.innerWidth < 1120) {
+  //       this.isOpen = false
+  //     }
+  //   },
+  // },
   mounted() {
     if (typeof window !== 'undefined' && window.innerWidth < 1120) {
       this.isOpen = false

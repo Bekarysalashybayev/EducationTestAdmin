@@ -21,8 +21,11 @@
             </div>
           </div>
           <div class="links__page">
-            <nuxt-link :to="localePath({path: `/${link.url}`})" class="links__page-link"
-                       v-for="(link, i) in links" :key="i">
+            <nuxt-link :to="localePath({path: `/${link.url}`})"
+                       class="links__page-link"
+                       v-for="(link, i) in links" :key="i"
+                       @click.native="toggleMenu(), event => event.preventDefault()"
+            >
               <div class="links__page-link-icon">
                 <d-icon :name="link.icon" :width="16" :height="20"/>
               </div>
@@ -91,6 +94,11 @@ export default {
   methods: {
     close() {
       this.$emit('close')
+    },
+    toggleMenu(){
+      if (typeof window !== 'undefined' && window.innerWidth < 1120) {
+        this.$emit('close')
+      }
     },
     async logOut() {
       await this.$auth.logout()
