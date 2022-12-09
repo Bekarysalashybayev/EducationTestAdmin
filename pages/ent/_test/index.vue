@@ -63,8 +63,8 @@
             <option :value="null" disabled selected>
               {{ $t('variant.select_lang') }}
             </option>
-            <option value="0">Қазақша</option>
-            <option value="1">Русский</option>
+            <option :value="0">Қазақша</option>
+            <option :value="1">Русский</option>
           </select>
         </div>
     <div class="select">
