@@ -146,7 +146,7 @@ export default {
       try {
         await this.$auth.loginWith('local', {
           data: {
-            iin:  "7" + this.form.iin,
+            iin:  this.form.iin,
             password: this.form.password
           }
         })
