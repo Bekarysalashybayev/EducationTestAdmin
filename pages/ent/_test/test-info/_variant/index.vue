@@ -101,17 +101,18 @@ export default {
       if (typeof window !== 'undefined') {
         if (!window.confirm("Завершить и выйти?")) {
           return;
-        }else{
-          this.saveAnswer(this.lessons[this.Lesson].id)
         }
+        // else{
+        //   this.saveAnswer(this.lessons[this.Lesson].id)
+        // }
       }
     }
     next();
   },
   beforeDestroy() {
-    if (!this.is_Finished) {
-      this.saveAnswer(this.lessons[this.Lesson].id)
-    }
+    // if (!this.is_Finished) {
+    //   this.saveAnswer(this.lessons[this.Lesson].id)
+    // }
   },
   created() {
     this.getLessons()
@@ -121,7 +122,7 @@ export default {
       if (this.is_Finished) return;
       event.preventDefault()
       event.returnValue = ""
-      this.saveAnswer(this.lessons[this.Lesson].id)
+      // this.saveAnswer(this.lessons[this.Lesson].id)
       if (typeof window !== 'undefined') {
         if (!window.confirm("Leave without saving?")) {
           return;
@@ -138,7 +139,7 @@ export default {
     async finishTest() {
       this.is_Finished = true
       await this.setLoader(true)
-      await this.saveAnswer(this.lessons[this.Lesson].id)
+      // await this.saveAnswer(this.lessons[this.Lesson].id)
       try {
         await this.$axios.post(`/quizzes/finish-ent/${this.id}/${this.test_id}/`)
         this.$toast.success('Ответ сохранен успешно!')
@@ -168,7 +169,7 @@ export default {
       }
     },
     changeLesson(lesson) {
-      this.saveAnswer(this.lessons[this.Lesson].id)
+      // this.saveAnswer(this.lessons[this.Lesson].id)
       this.Lesson = lesson
       this.getQuestionsByLessonID(this.lessons[this.Lesson].id)
     },
@@ -187,14 +188,29 @@ export default {
     clearChoice() {
       this.questions[this.currentQuestion - 1].user_ans = []
     },
-    selectAnswer(selectedAnswer) {
+    async selectAnswer(selectedAnswer) {
       this.questions[this.currentQuestion - 1].user_ans = selectedAnswer
+      await this.saveAnswerByQuestion(this.questions[this.currentQuestion - 1].id, selectedAnswer)
     },
     nextLesson() {
       if (this.Lesson < this.lessons.length - 1) {
         this.currentQuestion = 1
         this.selectedAns = []
         this.changeLesson(this.Lesson + 1)
+      }
+    },
+    async saveAnswerByQuestion(question, selectedAnswer){
+      this.setLoader(true)
+      try {
+        await this.$axios.post(`quizzes/pass-answer/`, {
+          question: question,
+          student_test: this.id,
+          answers: Array.isArray(selectedAnswer) ? selectedAnswer : [selectedAnswer]
+        })
+      } catch (e) {
+        alert(e)
+      }finally {
+        this.setLoader(false)
       }
     },
     async getLessons() {
