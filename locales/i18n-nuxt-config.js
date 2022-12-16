@@ -15,6 +15,6 @@ export const i18n = {
   ],
   lazy: true,
   langDir: '@/locales',
-  defaultLocale: 'kz',
+  defaultLocale: 'ru',
   detectBrowserLanguage: false
 }

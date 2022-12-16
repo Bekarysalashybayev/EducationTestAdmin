@@ -1,0 +1,138 @@
+input, select{
+  font-size: 16px;
+  color: black;
+  padding: 12px 8px;
+  background: #FFFFFF;
+  border: 1px solid #DEDEDE;
+  box-sizing: border-box;
+  border-radius: 5px;
+  width: 100%;
+}
+input:focus, select:focus{
+  outline: none;
+}
+select{
+  appearance: auto;
+}
+.add-form{
+  background: #FFFFFF;
+  border: 1px solid #DEDEDE;
+  box-sizing: border-box;
+  border-radius: 10px;
+  width: 100%;
+  padding: 20px;
+}
+.form-header{
+  font-weight: bold;
+  font-size: 17px;
+  line-height: 20px;
+  color: #000000;
+  margin-bottom: 30px;
+}
+.row-group-multi{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.row-group{
+  width: 100%;
+  margin-bottom: 30px;
+}
+label{
+  color: rgba(0, 0, 0, 1) !important;
+  display: block;
+  font-size: 13px!important;
+  margin-bottom: 12px;
+}
+label span{
+  color: red;
+  font-size: 16px;
+  line-height: 1;
+  font-weight: bold;
+}
+.form-group{
+  width: 45%;
+  min-width: 250px;
+  margin-bottom: 30px;
+  position: relative;
+}
+.error{
+  border:  1.5px solid red!important;
+}
+.error-label{
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 10px;
+  color: red;
+  font-size: 14px;
+}
+.variant-list{
+  display: flex;
+  align-items: center;
+  margin-top: 60px!important;
+}
+.variant-input{
+  width: 180px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.variant-input label{
+  position: absolute;
+  top: -30px;
+  left: 0;
+}
+.add-variant{
+  margin-left: 12px;
+  border: 1px solid #029AAD;
+  border-radius: 5px;
+  padding: 8px 10px;
+  line-height: 1;
+  font-size: 16px;
+}
+.add-variant:hover{
+  background-color: #029AAD;
+}
+.add-variant:hover svg path{
+  fill: #FFFFFF;
+}
+.variants{
+  flex-grow: 1;
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+}
+.variant-name{
+  font-size: 15px;
+  line-height: 17px;
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1px solid #DEDEDE;
+  border-radius: 5px;
+  width: max-content;
+  padding: 12px 30px 12px 15px;
+  position: relative;
+  margin-left: 12px;
+}
+.variant-name button{
+  margin-left: 10px;
+  position: absolute;
+  right: 7px;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+.variant-name button:hover{
+  background-color: #969696;
+  border-radius: 50%;
+  padding: 3px;
+}
+@media (max-width: 600px) {
+  .form-group{
+    width: 100%;
+    min-width: 100%;
+    margin-bottom: 30px;
+  }
+}

@@ -7,7 +7,7 @@
 export default {
   name: 'IndexPage',
   created() {
-    this.$router.push(this.localePath({path: "/ent"}))
+    this.$router.push(this.localePath({path: "/students"}))
   },
 }
 </script>

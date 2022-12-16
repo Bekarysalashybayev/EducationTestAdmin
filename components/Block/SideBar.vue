@@ -13,10 +13,7 @@
                 {{ currentUser.first_name + " " + currentUser.last_name + " " + currentUser.middle_name }}
               </div>
               <div class="links__user-data-iin">
-                <span>ID:</span> {{ currentUser['user_id'] }}
-              </div>
-              <div class="links__user-data-iin">
-                <span>{{ $t('side_bar.balance') }}</span>{{ currentUser.balance }}
+                Администратор
               </div>
             </div>
           </div>
@@ -30,7 +27,7 @@
                 <d-icon :name="link.icon" :width="16" :height="20"/>
               </div>
               <div class="links__page-link-name closed">
-                {{ $t(`side_bar.${link.name}`) }}
+                {{ link.name }}
               </div>
             </nuxt-link>
           </div>
@@ -66,20 +63,20 @@ export default {
     return {
       links: [
         {
-          name: "pass",
-          icon: "PastTestIcon",
-          url: "ent/",
+          name: "Ученики",
+          icon: "StudentIcon",
+          url: "students/",
         },
         {
-          name: "instruction",
-          icon: "InstructionIcon",
-          url: "instruction/",
+          name: "Варианты",
+          icon: "VariantIcon",
+          url: "variants/",
         },
         {
-          name: "rule",
-          icon: "RulesIcon",
-          url: "rules/",
-        }
+          name: "Тесты",
+          icon: "TestsIcon",
+          url: "tests/",
+        },
       ],
     }
   },
@@ -119,14 +116,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.links__logout{
+.links__logout {
   display: none;
 }
-.open{
-  .links__logout{
+
+.open {
+  .links__logout {
     display: block;
   }
 }
+
 .nuxt-link-exact-active, .nuxt-link-active {
   color: $white !important;
   background-color: $main_color !important;

@@ -1,5 +1,6 @@
 import {
-  BurgerIcon, closeModalIcon, errorModalIcon,
+  BtnArrowIcon,
+  BurgerIcon, closeModalIcon, ComeBackIcon, errorModalIcon,
   formCityIcon,
   formPassIcon,
   formUserIcon, infoModalIcon, InstructionIcon,
@@ -7,8 +8,8 @@ import {
   PastTestIcon,
   RCorrectIcon,
   RulesIcon,
-  RWrongIcon, successModalIcon, testDurationIcon, testPriceIcon, testTypeIcon,
-  UserIcon,
+  RWrongIcon, StudentIcon, successModalIcon, testDurationIcon, testPriceIcon, TestsIcon, testTypeIcon,
+  UserIcon, VariantDeleteIcon, VariantIcon,
 } from "./own";
 
 
@@ -30,5 +31,11 @@ export default {
   closeModalIcon,
   successModalIcon,
   errorModalIcon,
-  infoModalIcon
+  infoModalIcon,
+  VariantIcon,
+  StudentIcon,
+  TestsIcon,
+  VariantDeleteIcon,
+  BtnArrowIcon,
+  ComeBackIcon
 }

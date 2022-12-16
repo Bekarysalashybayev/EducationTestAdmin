@@ -184,7 +184,12 @@ html {
   font-size: clamp(18px, 4vw, 24px);
   line-height: 1.2;
 }
-
+.page{
+  padding: 3rem 5rem;
+  min-height: calc(100vh - 5rem);
+}
+.page-body{
+}
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   select:focus,

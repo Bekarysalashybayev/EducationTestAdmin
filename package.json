@@ -9,6 +9,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@blowstack/ckeditor-nuxt": "^0.6.0",
     "@nuxtjs/auth-next": "^5.0.0-1667386184.dfbbb54",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/dotenv": "^1.4.1",
@@ -21,7 +22,8 @@
     "v-click-outside": "^3.2.0",
     "vue": "^2.7.10",
     "vue-server-renderer": "^2.7.10",
-    "vue-template-compiler": "^2.7.10"
+    "vue-template-compiler": "^2.7.10",
+    "vuelidate": "^0.7.7"
   },
   "devDependencies": {
     "@nuxtjs/moment": "^1.6.1",

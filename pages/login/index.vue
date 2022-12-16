@@ -1,17 +1,11 @@
 <template>
   <div class="login">
-    <div class="lang">
-      <lang-switcher />
-    </div>
     <div class="form">
       <img src="../../assets/img/login-main.png" alt="" class="form-logo">
       <div class="header">
-        <nuxt-link :to="localePath('/login')" class="title active">
+        <div class="title active">
           {{ $t('login.title') }}
-        </nuxt-link>
-        <nuxt-link :to="localePath('/register')" class="title">
-          {{ $t('registration.title') }}
-        </nuxt-link>
+        </div>
       </div>
       <form class="form__group" @submit.prevent="checkForm">
         <div
@@ -47,50 +41,11 @@
             <img src="../../assets/img/eyes.png" alt="" class="eyes" @click="togglePass('password')">
           </div>
         </div>
-        <div class="forgot">
-          <div @click="isModal = true">
-            {{ $t('login.forgot') }}
-          </div>
-        </div>
-        <div class="privacy">
-          <input type="checkbox" v-model="isPrivacy">
-          <div class="text">
-            {{ $t('login.privacy.text1') }}
-            <nuxt-link to="/" class="d-link">{{ $t('login.privacy.text2') }}</nuxt-link>
-            {{ $t('login.privacy.and') }}
-            <nuxt-link to="/" class="d-link">{{ $t('login.privacy.text3') }}</nuxt-link>
-            .
-          </div>
-        </div>
         <div class="verification-btn">
-          <button @click.prevent="checkForm"
-                  :disabled="!isPrivacy">{{ $t('login.btn_text') }}
+          <button @click.prevent="checkForm">{{ $t('login.btn_text') }}
           </button>
         </div>
       </form>
-    </div>
-    <div class="modal" v-if="isModal">
-      <div class="modal-block font-size-22" v-click-outside="()=>{this.isModal=false}">
-        <div class="modal-block-header">
-          <span>
-            {{ $t('login.forgot') }}
-          </span>
-          <img src="../../assets/img/close-forgot.png" alt="" @click="isModal=false">
-        </div>
-        <div class="modal-block-body font-size-20">
-          <div>
-            {{ $t('login.forgot_text') }}
-          </div>
-          <div class="modal-social">
-            <a href="https://wa.me/+77770212808" target="_blank">
-              <img src="../../assets/img/WhatsApp.png" alt="">
-            </a>
-            <a href="https://telegram.im/@testhubkz" target="_blank">
-              <img src="../../assets/img/Telegram.png" alt="">
-            </a>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -98,11 +53,10 @@
 <script>
 import {mapMutations} from 'vuex'
 import DIcon from "@/components/core/icons/DIcon";
-import LangSwitcher from "@/components/core/LangSwitcher";
 
 export default {
   name: "index",
-  components: {LangSwitcher, DIcon},
+  components: {DIcon},
   layout: 'blank',
   auth: false,
   data() {
@@ -155,7 +109,7 @@ export default {
           }
         })
         this.$toast.success(this.$t('login.success').toString())
-        await this.$router.push(this.localePath('/ent'))
+        await this.$router.push(this.localePath('/students'))
       } catch (er) {
         if (er.response && er.response.data && er.response.data.detail) {
           this.$toast.error(er.response.data.detail)
@@ -177,14 +131,6 @@ export default {
   align-items: center;
   min-height: 100vh;
   justify-content: center;
-  position: relative;
-
-  .lang{
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    padding: rem(37) rem(50) 0;
-  }
 
   .form {
     display: flex;
@@ -384,52 +330,11 @@ export default {
   }
 }
 
-.privacy {
-  display: flex;
-  align-items: center;
-  margin-bottom: rem(50);
-  margin-top: rem(50);
-
-  input {
-    width: 25px;
-    height: 25px;
-    accent-color: $midnight;
-  }
-
-  .text {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 25px;
-    color: $midnight;
-    margin-left: 10px;
-  }
-
-  .d-link {
-    color: $main_color;
-    font-weight: 500;
-
-    &:hover {
-      text-decoration: underline !important;
-    }
-  }
-
-  @media screen and (max-width: 1120px) {
-    input {
-      width: 18px;
-      height: 18px;
-    }
-    .text {
-      font-size: 13px;
-      line-height: 1.2;
-      margin-left: 10px;
-    }
-  }
-}
-
 .verification-btn {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: rem(50);
 
   button {
     font-weight: 600;
@@ -448,26 +353,6 @@ export default {
   }
 }
 
-.forgot {
-  margin-top: rem(20);
-  font-weight: 400;
-  font-size: 17px;
-  line-height: 20px;
-  color: $midnight;
-  display: flex;
-  justify-content: flex-end;
-
-  div {
-    cursor: pointer;
-  }
-
-  @media screen and (max-width: 1120px) {
-    margin-top: 20px;
-    font-size: 15px;
-    line-height: 1.2;
-  }
-}
-
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -477,63 +362,5 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
-}
-
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-block {
-  max-width: 90%;
-  max-height: 90%;
-  width: 476px;
-  height: max-content;
-  background: #FFFFFF;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 3rem;
-  font-weight: 500;
-  color: #000823;
-}
-
-.modal-block-header {
-  display: flex;
-  align-items: center;
-  margin-right: 5px;
-}
-
-.modal-block-header img {
-  width: 15px;
-  height: 15px;
-  margin-left: auto;
-  cursor: pointer;
-}
-
-.modal-block-body {
-  margin-top: 3rem;
-}
-
-.modal-social {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 3rem;
-}
-
-.modal-social a:first-child {
-  margin-right: 5rem;
-}
-
-.modal-social a img {
-  width: 50px;
-  height: 50px;
 }
 </style>

@@ -69,7 +69,7 @@ export default {
           property: 'access',
         },
         endpoints: {
-          login: {url: '/user/login/', method: 'post'},
+          login: {url: '/user/staff-login/', method: 'post'},
           logout: false,
           user: false
         }
