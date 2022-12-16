@@ -37,7 +37,7 @@
           <div class="links__logout links__page">
             <div class="links__page-link" @click="logOut">
               <div class="links__page-link-icon">
-                <d-icon name="LogoutIcon" />
+                <d-icon name="LogoutIcon"/>
               </div>
               <div class="links__page-link-name closed">
                 {{ $t('side_bar.logout') }}
@@ -95,7 +95,7 @@ export default {
     close() {
       this.$emit('close')
     },
-    toggleMenu(){
+    toggleMenu() {
       if (typeof window !== 'undefined' && window.innerWidth < 1120) {
         this.$emit('close')
       }
@@ -103,14 +103,13 @@ export default {
     async logOut() {
       await this.$auth.logout()
     },
-    async authMe(){
+    async authMe() {
       try {
         const {data} = (await this.$axios.get('user/me/'))
-        if (data){
+        if (data) {
           await this.$store.dispatch('user/authUser', data)
         }
-      }
-      catch (e) {
+      } catch (e) {
         this.$toast.error(this.$t('login,auth_error').toString())
         await this.logOut()
       }
@@ -120,16 +119,25 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.nuxt-link-exact-active, .nuxt-link-active{
-  color: $white!important;
-  background-color: $main_color!important;
+.links__logout{
+  display: none;
+}
+.open{
+  .links__logout{
+    display: block;
+  }
+}
+.nuxt-link-exact-active, .nuxt-link-active {
+  color: $white !important;
+  background-color: $main_color !important;
   font-weight: bold;
 
-  &::v-deep svg path{
+  &::v-deep svg path {
     fill: $white;
   }
 }
-.outer{
+
+.outer {
   position: absolute;
   left: 0;
   top: 0;
@@ -137,6 +145,7 @@ export default {
   height: 100%;
   z-index: 1;
 }
+
 .side-bar {
   position: fixed;
   left: 0;
@@ -153,16 +162,17 @@ export default {
     overflow: hidden;
   }
 
-  .closed{
+  .closed {
     display: none;
   }
 
   &.open {
     width: 300px;
 
-    .closed{
+    .closed {
       display: block;
     }
+
   }
 
 
@@ -180,6 +190,10 @@ export default {
       padding-bottom: 60px;
       overflow: hidden;
       position: relative;
+
+      @media screen and (max-width: 768px) {
+        overflow-y: auto;
+      }
 
       &:hover {
         overflow-y: auto;
@@ -219,11 +233,11 @@ export default {
             align-items: center;
             margin-top: 10px;
 
-            &:first-child{
+            &:first-child {
               margin-top: 0;
             }
 
-            span{
+            span {
               display: block;
               width: 70px;
             }
@@ -256,21 +270,21 @@ export default {
         }
       }
 
-      &__logout{
+      &__logout {
         height: 60px;
         width: 300px;
-        position: absolute;
+        position: fixed;
         left: 0;
         bottom: 0;
         border-top: 1px solid #A5A5A5;
         background-color: $white;
       }
 
-      &__logout .links__page-link{
-        color: $red!important;
+      &__logout .links__page-link {
+        color: $red !important;
 
-        &::v-deep svg path{
-          fill: $red!important;;
+        &::v-deep svg path {
+          fill: $red !important;;
         }
       }
     }
