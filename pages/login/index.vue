@@ -1,5 +1,8 @@
 <template>
   <div class="login">
+    <div class="lang">
+      <lang-switcher />
+    </div>
     <div class="form">
       <img src="../../assets/img/login-main.png" alt="" class="form-logo">
       <div class="header">
@@ -95,10 +98,11 @@
 <script>
 import {mapMutations} from 'vuex'
 import DIcon from "@/components/core/icons/DIcon";
+import LangSwitcher from "@/components/core/LangSwitcher";
 
 export default {
   name: "index",
-  components: {DIcon},
+  components: {LangSwitcher, DIcon},
   layout: 'blank',
   auth: false,
   data() {
@@ -173,6 +177,14 @@ export default {
   align-items: center;
   min-height: 100vh;
   justify-content: center;
+  position: relative;
+
+  .lang{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: rem(37) rem(50) 0;
+  }
 
   .form {
     display: flex;
