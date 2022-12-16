@@ -3,7 +3,7 @@ import {i18n} from "./locales/i18n-nuxt-config";
 export default {
   server: {
     // host: '0',
-    port: 3000
+    port: 3001
   },
   head: {
     title: 'TestHub',
