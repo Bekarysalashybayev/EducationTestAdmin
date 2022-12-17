@@ -8,8 +8,8 @@ import {
   PastTestIcon,
   RCorrectIcon,
   RulesIcon,
-  RWrongIcon, StudentIcon, successModalIcon, testDurationIcon, testPriceIcon, TestsIcon, testTypeIcon,
-  UserIcon, VariantDeleteIcon, VariantIcon,
+  RWrongIcon, SearchIcon, StudentIcon, successModalIcon, testDurationIcon, testPriceIcon, TestsIcon, testTypeIcon,
+  UserIcon, UserProfileIcon, VariantDeleteIcon, VariantIcon,
 } from "./own";
 
 
@@ -37,5 +37,7 @@ export default {
   TestsIcon,
   VariantDeleteIcon,
   BtnArrowIcon,
-  ComeBackIcon
+  ComeBackIcon,
+  SearchIcon,
+  UserProfileIcon
 }

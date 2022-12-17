@@ -34,6 +34,7 @@ export default {
   },
 
   plugins: [
+    { src: '~plugins/vs-pagination', mode: 'client' },
     {src: "~/plugins/vClickOutside", ssr: false},
     "@/plugins/axios.js",
   ],
