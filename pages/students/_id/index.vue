@@ -94,6 +94,7 @@ export default {
         })
         this.balance = null
         await this.getHistory()
+        await this.getStudent()
       }catch (e) {
         alert(e)
       }finally {
