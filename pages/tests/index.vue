@@ -80,7 +80,7 @@
             <div class="variant-body" v-show="isOpen === test.id">
               <template v-if="test.variants">
                 <div class="variant-name" v-for="(v, i) in test.variants" :key="i">
-                  Вариант №{{ v.name }}
+                  Вариант № {{ v.name }}
                 </div>
               </template>
             </div>
@@ -215,8 +215,8 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        font-size: 11px;
-        line-height: 13px;
+        font-size: 14px;
+        line-height: 16px;
 
         .data {
           flex: 0 0 24%;
