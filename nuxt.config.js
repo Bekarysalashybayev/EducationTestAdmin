@@ -56,7 +56,7 @@ export default {
     '@nuxtjs/dotenv',
     '@nuxtjs/toast',
     '@nuxtjs/axios',
-    '@nuxtjs/auth-next'
+    '@nuxtjs/auth-next',
   ],
   toast: {
     position: 'top-center',
