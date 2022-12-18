@@ -4,6 +4,14 @@
       <div class="page-title font-size-24">
         Тесты
       </div>
+      <div class="filter">
+        <select v-model="form.school" @change="filter">
+          <option :value="null">Выберите школу</option>
+          <option :value="s.id" v-for="(s, i) in schools" :key="i">
+            {{ s.name }}
+          </option>
+        </select>
+      </div>
       <div class="page-list">
         <div class="page-list-item" v-for="(test, i) in tests.data" :key="i">
           <div class="page-list-item-header">
@@ -79,9 +87,9 @@
           </div>
         </div>
       </div>
-      <div class="page-pagination">
+      <div class="page-pagination" v-if="tests.total_pages > 1">
         <client-only>
-          <vs-pagination :total-pages="tests.total_pages" @change="changePage"></vs-pagination>
+          <vs-pagination :total-pages="tests.total_pages" :current-page="tests.current_page" @change="changePage"></vs-pagination>
         </client-only>
       </div>
     </div>
@@ -110,16 +118,23 @@ export default {
       form: {
         page: 1,
         page_size: 4,
+        school: null,
       },
+      schools: [],
       isOpen: null,
     }
   },
   mounted() {
     this.getTests()
+    this.getSchools()
   },
   methods: {
     publishTest(test) {
 
+    },
+    async filter(){
+      this.form.page = 1
+      await this.getTests()
     },
     async changePage(page) {
       this.form.page = page
@@ -131,6 +146,19 @@ export default {
         const {data} = await this.$axios.get("/super-admin/test-list/", {params: this.form})
         if (data && data.data) {
           this.tests = data
+        }
+      } catch (e) {
+        alert(e)
+      } finally {
+        this.SET_LOADER(false)
+      }
+    },
+    async getSchools() {
+      this.SET_LOADER(true)
+      try {
+        const {data} = await this.$axios.get("/quizzes/school/all/")
+        if (data) {
+          this.schools = data
         }
       } catch (e) {
         alert(e)
@@ -248,7 +276,19 @@ export default {
     }
   }
 }
+.filter{
+  margin-bottom: rem(30);
 
+  select{
+    padding: 7px 15px;
+    font-size: 15px;
+    width: 200px;
+
+    &:focus{
+      outline: none;
+    }
+  }
+}
 .c-active {
   display: flex;
   align-items: center;
