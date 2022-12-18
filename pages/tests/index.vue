@@ -3,6 +3,9 @@
     <div class="page-body">
       <div class="page-title font-size-24">
         Тесты
+        <nuxt-link to="/tests/add" class="c-btn add font-size-18">
+          Добавить
+        </nuxt-link>
       </div>
       <div class="filter">
         <select v-model="form.school" @change="filter">
@@ -190,6 +193,7 @@ export default {
     margin-bottom: rem(40);
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
 
   &-list {
