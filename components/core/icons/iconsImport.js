@@ -1,15 +1,31 @@
 import {
   BtnArrowIcon,
-  BurgerIcon, closeModalIcon, ComeBackIcon, errorModalIcon,
+  BurgerIcon,
+  closeModalIcon,
+  ComeBackIcon,
+  errorModalIcon,
   formCityIcon,
   formPassIcon,
-  formUserIcon, infoModalIcon, InstructionIcon,
+  formUserIcon,
+  infoModalIcon,
+  InstructionIcon,
   LogoutIcon,
   PastTestIcon,
   RCorrectIcon,
   RulesIcon,
-  RWrongIcon, SearchIcon, StudentIcon, successModalIcon, testDurationIcon, testPriceIcon, TestsIcon, testTypeIcon,
-  UserIcon, UserProfileIcon, VariantDeleteIcon, VariantIcon,
+  RWrongIcon,
+  SearchIcon,
+  StudentIcon,
+  successModalIcon,
+  testDurationIcon,
+  TestNameIcon,
+  testPriceIcon,
+  TestsIcon,
+  testTypeIcon,
+  UserIcon,
+  UserProfileIcon,
+  VariantDeleteIcon,
+  VariantIcon,
 } from "./own";
 
 
@@ -39,5 +55,6 @@ export default {
   BtnArrowIcon,
   ComeBackIcon,
   SearchIcon,
-  UserProfileIcon
+  UserProfileIcon,
+  TestNameIcon
 }
