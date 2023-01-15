@@ -49,8 +49,8 @@
           <tbody>
           <tr v-for="(history, i) in histories" :key="i">
             <td>{{ $moment(history.created).format("DD.MM.YYYY HH:MM") }}</td>
-            <td>{{ history.balance }}</td>
-            <td class="td-status">Пройден</td>
+            <td>{{ history.price }}</td>
+            <td class="td-status">{{ history.price }}</td>
             <td></td>
           </tr>
           </tbody>
@@ -120,9 +120,9 @@ export default {
     async getHistory() {
       this.SET_LOADER(true)
       try {
-        const {data} = await this.$axios.get(`/user/balance-history/?student=${this.id}`)
+        const {data} = await this.$axios.get(`quizzes/buy-test-history/?student=${this.id}&page_size=1000`)
         if (data) {
-          this.histories = data
+          this.histories = data.data
         }
       } catch (e) {
         alert(e)
