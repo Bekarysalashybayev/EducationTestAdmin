@@ -50,7 +50,7 @@
           <tr v-for="(history, i) in histories" :key="i">
             <td>{{ $moment(history.created).format("DD.MM.YYYY HH:MM") }}</td>
             <td>{{ history.price }}</td>
-            <td class="td-status">{{ history.price }}</td>
+            <td class="td-status">{{ history.status }}</td>
             <td></td>
           </tr>
           </tbody>
