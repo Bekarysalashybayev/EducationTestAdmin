@@ -34,6 +34,13 @@
               <button @click="addBalance">Добавить</button>
             </div>
           </div>
+          <div class="page-user-data-description font-size-15">
+            <div class="label">Пароль:</div>
+            <div class="add-form">
+              <input type="number" placeholder="Введите пароль" v-model="password">
+              <button @click="changePassword">Изменить</button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="page-list">
@@ -73,6 +80,7 @@ export default {
       student: null,
       histories: [],
       balance: null,
+      password: null,
     }
   },
   mounted() {
@@ -80,9 +88,28 @@ export default {
     this.getHistory()
   },
   methods: {
-    async addBalance(){
+    async changePassword() {
       if (!this.id) return;
-      if (!this.balance){
+      if (!this.password || this.password.length < 8) {
+        this.$toast.error("Напишите Пароль (Минимум 8 символ)")
+        return;
+      }
+      this.SET_LOADER(true)
+      try {
+        await this.$axios.put(`/user/password/`, {
+          user_id: this.id,
+          password: this.password,
+        })
+      } catch (e) {
+        alert(e)
+      } finally {
+        this.SET_LOADER(false)
+        this.$toast.success("Хорошо")
+      }
+    },
+    async addBalance() {
+      if (!this.id) return;
+      if (!this.balance) {
         this.$toast.error("Напишите сумму")
         return;
       }
@@ -95,9 +122,9 @@ export default {
         this.balance = null
         await this.getHistory()
         await this.getStudent()
-      }catch (e) {
+      } catch (e) {
         alert(e)
-      }finally {
+      } finally {
         this.SET_LOADER(false)
       }
     },
@@ -228,18 +255,21 @@ export default {
         padding: rem(16) 5px;
         border-bottom: 0.5px solid #A5A5A5;
       }
-      tbody tr:last-child td{
+
+      tbody tr:last-child td {
         border-bottom: 0;
       }
-      td.td-status{
+
+      td.td-status {
         color: #009B22;
         font-weight: 550;
       }
-      td .td-link{
+
+      td .td-link {
         color: #005DAE;
 
-        &:hover{
-          text-decoration: underline!important;
+        &:hover {
+          text-decoration: underline !important;
         }
       }
 
