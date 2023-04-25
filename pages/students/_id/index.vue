@@ -223,7 +223,7 @@ export default {
           }
 
           button {
-            background: #005DAE;
+            background: #1864AB;
             border-radius: 5px;
             padding: 5px 10px;
             color: #FFFFFF;
@@ -266,7 +266,7 @@ export default {
       }
 
       td .td-link {
-        color: #005DAE;
+        color: #1864AB;
 
         &:hover {
           text-decoration: underline !important;
@@ -275,7 +275,7 @@ export default {
 
       th {
         font-weight: 550;
-        color: #005DAE;
+        color: #1864AB;
       }
     }
 

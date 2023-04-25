@@ -3,10 +3,10 @@ import {i18n} from "./locales/i18n-nuxt-config";
 export default {
   server: {
     // host: '0',
-    port: process.env.PORT
+    port: 3001
   },
   head: {
-    title: 'TestHub',
+    title: 'BilimAppAdmin',
     htmlAttrs: {
       lang: 'en'
     },

@@ -238,7 +238,7 @@ export default {
             align-items: center;
             font-size: 14px;
             line-height: 17px;
-            color: #005DAE;
+            color: #1864AB;
           }
         }
       }
@@ -300,13 +300,13 @@ export default {
 }
 
 .c-btn {
-  border: 1px solid #005DAE;
+  border: 1px solid #1864AB;
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 500;
-  color: #005DAE;
+  color: #1864AB;
   padding: 5px 10px;
   cursor: pointer;
   transition: all linear .3s;
@@ -320,7 +320,7 @@ export default {
   }
 
   &:hover {
-    background-color: #005DAE;
+    background-color: #1864AB;
     color: #FFFFFF;
 
     &::v-deep {
@@ -332,7 +332,7 @@ export default {
 
   &.add {
     width: 150px;
-    background-color: #005DAE;
+    background-color: #1864AB;
     color: #FFFFFF;
 
     &::v-deep {
@@ -343,11 +343,11 @@ export default {
 
     &:hover {
       background-color: #FFFFFF;
-      color: #005DAE;
+      color: #1864AB;
 
       &::v-deep {
         svg path {
-          fill: #005DAE !important;
+          fill: #1864AB !important;
         }
       }
     }
@@ -393,11 +393,11 @@ export default {
 }
 
 input:checked + .slider {
-  background-color: #005DAE;
+  background-color: #1864AB;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #005DAE;
+  box-shadow: 0 0 1px #1864AB;
 }
 
 input:checked + .slider:before {

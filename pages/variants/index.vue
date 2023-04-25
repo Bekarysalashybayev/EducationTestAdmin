@@ -185,7 +185,7 @@ export default {
 
 .c-btn {
   margin-top: 16px;
-  border: 1px solid #005DAE;
+  border: 1px solid #1864AB;
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -193,7 +193,7 @@ export default {
   font-weight: 500;
   font-size: 15px;
   line-height: 18px;
-  color: #005DAE;
+  color: #1864AB;
   padding: 10px 0;
   cursor: pointer;
   transition: all linear .3s;
@@ -207,7 +207,7 @@ export default {
   }
 
   &:hover {
-    background-color: #005DAE;
+    background-color: #1864AB;
     color: #FFFFFF;
 
     &::v-deep {
@@ -219,7 +219,7 @@ export default {
 
   &.add {
     width: 150px;
-    background-color: #005DAE;
+    background-color: #1864AB;
     color: #FFFFFF;
 
     &::v-deep {
@@ -229,11 +229,11 @@ export default {
     }
     &:hover {
       background-color: #FFFFFF;
-      color: #005DAE;
+      color: #1864AB;
 
       &::v-deep {
         svg path {
-          fill: #005DAE !important;
+          fill: #1864AB !important;
         }
       }
     }
@@ -260,15 +260,15 @@ export default {
   .m-btn {
     margin-top: rem(30);
     padding: 10px 25px;
-    background-color: #005DAE;
+    background-color: #1864AB;
     color: #FFFFFF;
 
     min-width: rem(140);
 
     &.cancel {
       background-color: #FFFFFF;
-      color: #005DAE;
-      border: 1px solid #005DAE;
+      color: #1864AB;
+      border: 1px solid #1864AB;
       margin-left: rem(30);
     }
   }

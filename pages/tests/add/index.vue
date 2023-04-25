@@ -184,13 +184,13 @@ export default {
   }
 }
 .c-btn {
-  border: 1px solid #005DAE;
+  border: 1px solid #1864AB;
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 500;
-  color: #005DAE;
+  color: #1864AB;
   padding: 5px 10px;
   cursor: pointer;
   transition: all linear .3s;
@@ -204,7 +204,7 @@ export default {
   }
 
   &:hover {
-    background-color: #005DAE;
+    background-color: #1864AB;
     color: #FFFFFF;
 
     &::v-deep {
@@ -216,7 +216,7 @@ export default {
 
   &.add {
     width: 150px;
-    background-color: #005DAE;
+    background-color: #1864AB;
     color: #FFFFFF;
 
     &::v-deep {
@@ -227,11 +227,11 @@ export default {
 
     &:hover {
       background-color: #FFFFFF;
-      color: #005DAE;
+      color: #1864AB;
 
       &::v-deep {
         svg path {
-          fill: #005DAE !important;
+          fill: #1864AB !important;
         }
       }
     }

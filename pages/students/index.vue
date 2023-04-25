@@ -193,7 +193,7 @@ export default {
         border-bottom: 0;
       }
       td .td-link{
-        color: #005DAE;
+        color: #1864AB;
 
         &:hover{
           text-decoration: underline!important;
@@ -202,7 +202,7 @@ export default {
 
       th {
         font-weight: 550;
-        color: #005DAE;
+        color: #1864AB;
       }
     }
 

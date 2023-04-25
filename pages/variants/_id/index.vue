@@ -147,7 +147,7 @@ export default {
 .c-btn {
   flex: 0 0 calc(50% - 7.5px);
   margin-top: 16px;
-  border: 1px solid #005DAE;
+  border: 1px solid #1864AB;
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -155,7 +155,7 @@ export default {
   font-weight: 500;
   font-size: 13px;
   line-height: 16px;
-  color: #005DAE;
+  color: #1864AB;
   padding: 10px 0;
   cursor: pointer;
   transition: all linear .3s;
@@ -169,7 +169,7 @@ export default {
   }
 
   &:hover {
-    background-color: #005DAE;
+    background-color: #1864AB;
     color: #FFFFFF;
 
     &::v-deep {

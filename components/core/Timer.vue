@@ -64,7 +64,7 @@ export default {
 
 <style scoped>
 .time__int{
-  color: #005DAE;
+  color: #1864AB;
   font-weight: bold;
 }
 </style>

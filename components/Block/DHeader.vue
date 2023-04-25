@@ -1,7 +1,7 @@
 <template>
 <div class="d-header">
   <div class="logo">
-    <img src="../../assets/img/Logo.png" alt="">
+    Bilim-App
   </div>
   <button class="burger" @click="$emit('close')">
     <d-icon name="BurgerIcon" width="2.375rem" height="1.46875rem"/>
@@ -36,9 +36,9 @@ export default {
   align-items: center;
 
   .logo{
-    width: rem(176);
-    height: rem(28)!important;
+    font-size: rem(30);
     overflow: hidden;
+    color: #1864AB;
 
     img{
       height: 100%;
