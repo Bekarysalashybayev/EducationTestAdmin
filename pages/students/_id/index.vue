@@ -20,19 +20,8 @@
             <div class="value">{{ student.user_id }}</div>
           </div>
           <div class="page-user-data-description font-size-15">
-            <div class="label">Телефон:</div>
-            <div class="value">{{ student.phone }}</div>
-          </div>
-          <div class="page-user-data-description font-size-15">
-            <div class="label">Текущий баланс:</div>
-            <div class="value">{{ student.balance }} ₸</div>
-          </div>
-          <div class="page-user-data-description font-size-15">
-            <div class="label">Баланс:</div>
-            <div class="add-form">
-              <input type="number" placeholder="Введите баланс" v-model="balance">
-              <button @click="addBalance">Добавить</button>
-            </div>
+            <div class="label">Email:</div>
+            <div class="value">{{ student.username }}</div>
           </div>
           <div class="page-user-data-description font-size-15">
             <div class="label">Пароль:</div>

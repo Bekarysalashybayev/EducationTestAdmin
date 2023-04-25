@@ -9,17 +9,14 @@
       </div>
       <form class="form__group" @submit.prevent="checkForm">
         <div
-          :class="['form__group-control phone', {error: (error.has && !form.iin) || (error.has && form.iin.length !== 10) }]">
-          <label class="form__group-control-label" for="phone">{{ $t('registration.phone') }}</label>
+          :class="['form__group-control', {error: error.has && !form.iin }]">
+          <label class="form__group-control-label" for="email">Email</label>
           <div class="input">
-            <div class="number">
-              +7
-            </div>
             <input
-              type="number" id="phone"
+              type="text" id="email"
               ref="username"
               v-model="form.iin"
-              placeholder=" ххх ххх хх хх"
+              placeholder="example@gmail.com"
               required>
             <div class="icon">
               <d-icon name="formUserIcon"/>
@@ -87,7 +84,7 @@ export default {
     },
     checkForm() {
       this.error.has = false
-      if (!this.form.iin || this.form.iin.length !== 10) {
+      if (!this.form.iin) {
         this.error.has = true
         return;
       }
@@ -104,7 +101,7 @@ export default {
       try {
         await this.$auth.loginWith('local', {
           data: {
-            iin:  this.form.iin,
+            username:  this.form.iin,
             password: this.form.password
           }
         })

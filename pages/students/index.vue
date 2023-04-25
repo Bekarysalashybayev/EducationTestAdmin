@@ -10,7 +10,7 @@
             <div class="icon">
               <d-icon name="SearchIcon" :width="12" :height="13"/>
             </div>
-            <input type="number" v-model="form.phone" placeholder="Номер телефона" @input="getStudents">
+            <input type="tetx" v-model="form.username" placeholder="Email" @input="getStudents">
           </div>
           <div class="input">
             <div class="icon">
@@ -26,8 +26,7 @@
           <tr>
             <th>ID</th>
             <th>ФИО ученика</th>
-            <th>Номер телефона</th>
-            <th>Баланс</th>
+            <th>Email</th>
             <th>#</th>
           </tr>
           </thead>
@@ -35,8 +34,7 @@
           <tr v-for="(student, i) in students.data" :key="i">
             <td>{{ student.user_id }}</td>
             <td>{{ `${student['last_name']} ${student['first_name']}` }}</td>
-            <td>{{ student.phone }}</td>
-            <td>{{ student.balance }} ₸</td>
+            <td>{{ student.username }}</td>
             <td>
               <nuxt-link :to="`/students/${student.id}`" class="td-link">Профиль</nuxt-link>
             </td>
@@ -63,7 +61,7 @@ export default {
   data() {
     return {
       form: {
-        phone: "",
+        username: "",
         user_id: "",
         page: 1,
         page_size: 10,
