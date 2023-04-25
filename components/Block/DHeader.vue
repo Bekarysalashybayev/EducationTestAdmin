@@ -1,7 +1,7 @@
 <template>
 <div class="d-header">
   <div class="logo">
-    Bilim-App
+    <d-icon name="LogoIcon" :width="178" :height="40" />
   </div>
   <button class="burger" @click="$emit('close')">
     <d-icon name="BurgerIcon" width="2.375rem" height="1.46875rem"/>
@@ -39,6 +39,12 @@ export default {
     font-size: rem(30);
     overflow: hidden;
     color: #1864AB;
+
+    &::v-deep{
+      svg{
+        width: rem(178);
+      }
+    }
 
     img{
       height: 100%;

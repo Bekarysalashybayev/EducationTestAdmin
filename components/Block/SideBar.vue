@@ -146,6 +146,7 @@ export default {
 }
 
 .side-bar {
+  z-index: 999;
   position: fixed;
   left: 0;
   top: 5rem;

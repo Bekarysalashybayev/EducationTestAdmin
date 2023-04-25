@@ -10,7 +10,7 @@
             <div class="icon">
               <d-icon name="SearchIcon" :width="12" :height="13"/>
             </div>
-            <input type="tetx" v-model="form.username" placeholder="Email" @input="getStudents">
+            <input type="text" v-model="form.username" placeholder="Email" @input="getStudents">
           </div>
           <div class="input">
             <div class="icon">
@@ -121,6 +121,7 @@ export default {
 
     &-row {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
 
       .input {
@@ -143,17 +144,20 @@ export default {
         }
 
         input {
-          padding: rem(10) rem(15) rem(10) rem(37);
+          padding: 10px rem(15) 10px 37px;
           background: #FFFFFF;
           border: 1px solid #A5A5A5;
           border-radius: 5px;
           width: 100%;
           height: 100%;
+          font-size: clamp(12px, rem(15), 15px)!important;
+
+          &:focus{
+            outline: none;
+          }
 
           &::placeholder {
-            font-weight: 400;
-            font-size: 15px;
-            line-height: 18px;
+            font-size: clamp(12px, rem(15), 15px);
             color: #686868;
           }
         }

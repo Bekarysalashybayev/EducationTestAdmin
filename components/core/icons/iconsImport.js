@@ -8,7 +8,7 @@ import {
   formPassIcon,
   formUserIcon,
   infoModalIcon,
-  InstructionIcon,
+  InstructionIcon, LogoIcon,
   LogoutIcon,
   PastTestIcon,
   RCorrectIcon,
@@ -56,5 +56,6 @@ export default {
   ComeBackIcon,
   SearchIcon,
   UserProfileIcon,
-  TestNameIcon
+  TestNameIcon,
+  LogoIcon
 }
