@@ -111,7 +111,9 @@ export default {
     }
   }
 }
-
+.row-group{
+  max-width: 400px;
+}
 .c-btn {
   margin-top: 16px;
   border: 1px solid #1864AB;
