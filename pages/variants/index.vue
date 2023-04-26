@@ -25,7 +25,7 @@
             </div>
             <div class="data">
               <span>Язык:</span>
-              <span>Казахский</span>
+              <span>{{ variant['test_lang'] === 1 ? 'Русский' : 'Казахский'}}</span>
             </div>
           </div>
           <div class="c-btn" @click="$router.push(`/variants/${variant.id}`)">

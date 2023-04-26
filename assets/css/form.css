@@ -38,6 +38,7 @@ select{
 }
 .row-group{
   width: 100%;
+  max-width: 400px;
   margin-bottom: 30px;
 }
 label{

@@ -16,6 +16,15 @@
                    :class="{error: this.$v.form.name.$dirty && !this.$v.form.name.required}"
             >
           </div>
+          <div class="row-group">
+            <label for="test_lang">Язык <span>*</span></label>
+            <select class="row-group-control" id="test_lang"
+                    :class="{error: this.$v.form.test_lang.$dirty && !this.$v.form.test_lang.required}"
+                    v-model="form.test_lang">
+              <option :value="0">Қазақша</option>
+              <option :value="1">Русский</option>
+            </select>
+          </div>
           <button class="c-btn">
             Добавить тест
           </button>
@@ -39,6 +48,7 @@ export default {
     return {
       form: {
         name: '',
+        test_lang: '',
       },
       errorForm: false,
     }
@@ -46,6 +56,7 @@ export default {
   validations: {
     form: {
       name: {required},
+      test_lang: {required},
     },
   },
   created() {
@@ -66,6 +77,7 @@ export default {
         if (data) {
           this.form = {
             name: '',
+            test_lang: '',
           }
           this.variants = []
           this.$toast.success('Вариант успешно создан!!!')
