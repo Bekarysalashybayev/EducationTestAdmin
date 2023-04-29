@@ -49,6 +49,24 @@
         Вопросы еще не добавлены
       </div>
     </div>
+    <test-modal
+      v-if="isQuestionDeleteModal"
+      icon="infoModalIcon"
+      @close="isQuestionDeleteModal=false">
+      <div class="buy-modal">
+        <div class="m-text mt-20 font-size-20">
+          Вы точно хотите удалить этот вопрос?
+        </div>
+        <div class="m-btns">
+          <button class="m-btn font-size-20" @click="deleteCurrentTest">
+            Да
+          </button>
+          <button class="m-btn cancel font-size-20" @click="cancelDeleteCurrentTest">
+            Отмена
+          </button>
+        </div>
+      </div>
+    </test-modal>
   </div>
 </template>
 
@@ -89,6 +107,22 @@ export default {
     this.reRender()
   },
   methods: {
+    async deleteCurrentTest() {
+      this.SET_LOADER(true)
+      try {
+        await this.$axios.delete(`/super-admin/question/${this.questionDeleteId}/`)
+        await this.getQuestions()
+        this.cancelDeleteCurrentTest()
+      } catch (e) {
+        alert(e)
+      } finally {
+        this.SET_LOADER(false)
+      }
+    },
+    cancelDeleteCurrentTest() {
+      this.questionDeleteId = null
+      this.isQuestionDeleteModal = false
+    },
     reRender() {
       if (window.MathJax) {
         window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub], () => console.log('done'));
@@ -191,6 +225,40 @@ export default {
           fill: #1864AB !important;
         }
       }
+    }
+  }
+}
+
+.buy-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #000823;
+
+  .m-title {
+    font-weight: 550;
+    margin: rem(30) rem(50);
+  }
+
+  .m-text {
+    &.mt-20 {
+      margin: rem(30) 0 rem(10) !important;
+    }
+  }
+
+  .m-btn {
+    margin-top: rem(30);
+    padding: 10px 25px;
+    background-color: #1864AB;
+    color: #FFFFFF;
+
+    min-width: rem(140);
+
+    &.cancel {
+      background-color: #FFFFFF;
+      color: #1864AB;
+      border: 1px solid #1864AB;
+      margin-left: rem(30);
     }
   }
 }
