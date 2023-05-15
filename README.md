@@ -1,4 +1,4 @@
-# TestEntMainAdmin
+# EducationTestAdmin
 
 ## Build Setup
 

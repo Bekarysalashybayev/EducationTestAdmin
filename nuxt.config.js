@@ -3,10 +3,10 @@ import {i18n} from "./locales/i18n-nuxt-config";
 export default {
   server: {
     // host: '0',
-    port: 3001
+    port: 4001
   },
   head: {
-    title: 'BilimAppAdmin',
+    title: 'EducationTestAdmin',
     htmlAttrs: {
       lang: 'en'
     },
