@@ -64,6 +64,8 @@
 <script>
 import ModalWindow from "~/components/core/ModalWindow";
 import DIcon from "~/components/core/icons/DIcon";
+import answers from '../../answers.json'
+import letters from '../../letters.json'
 
 export default {
   name: "index",
@@ -84,35 +86,8 @@ export default {
         },
         removePlugins: ['Title'],
       },
-      editorConfigText: {
-        simpleUpload: {
-          uploadUrl: process.env.BASE_URL + '/quiz/question-image/',
-        },
-        removePlugins: ['Title'],
-      },
-      letters: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K'],
-      answers: [
-        {
-          correct: false,
-          answer: '',
-        },
-        {
-          correct: false,
-          answer: '',
-        },
-        {
-          correct: false,
-          answer: '',
-        },
-        {
-          correct: false,
-          answer: '',
-        },
-        {
-          correct: false,
-          answer: '',
-        },
-      ],
+      letters: letters,
+      answers: JSON.parse(JSON.stringify(answers)),
       question: {
         text: '',
       },

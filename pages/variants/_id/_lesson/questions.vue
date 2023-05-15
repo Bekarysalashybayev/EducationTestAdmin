@@ -66,6 +66,7 @@
 import DIcon from "~/components/core/icons/DIcon";
 import {mapMutations} from "vuex";
 import MathJaxContent from "~/components/core/MathJaxContent.vue";
+import letters from "./letters.json"
 
 export default {
   name: "questions",
@@ -76,7 +77,7 @@ export default {
       lesson_id: this.$route.params.lesson,
       questions: [],
       isCompleted: false,
-      letters: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K'],
+      letters: letters,
       isQuestionDeleteModal: false,
       questionDeleteId: null,
     }
