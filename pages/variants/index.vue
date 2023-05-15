@@ -14,18 +14,26 @@
             <div class="name font-size-17">
               {{ variant.name }}
             </div>
-            <div class="delete" @click="deleteTest(variant)">
+            <div class="delete" @click="deleteTest(variant)" v-if="!variant.is_active">
               <d-icon name="VariantDeleteIcon" :width="16" :height="15"/>
             </div>
           </div>
           <div class="content">
             <div class="data">
+              <span>Создано:</span>
+              <span>{{$moment(variant.created).format("DD.MM.YYYY")}}</span>
+            </div>
+            <div class="data">
               <span>Опубликовано:</span>
-              <span>07.12.2021</span>
+              <span>{{$moment(variant.modified).format("DD.MM.YYYY")}}</span>
+            </div>
+            <div class="data">
+              <span>Aктивно:</span>
+              <span>{{variant.is_active ? 'Да' : 'Нет'}}</span>
             </div>
             <div class="data">
               <span>Язык:</span>
-              <span>{{ variant['test_lang'] === 1 ? 'Русский' : 'Казахский'}}</span>
+              <span>{{ variant['language'] === 'KZ' ? 'Қазақша' : 'Русский'}}</span>
             </div>
           </div>
           <div class="c-btn" @click="$router.push(`/variants/${variant.id}`)">
@@ -90,7 +98,7 @@ export default {
       this.isDelete = false
       this.SET_LOADER(true)
       try {
-        await this.$axios.delete(`/super-admin/destroy-variant/${this.currentDeleteTest.id}/`)
+        await this.$axios.delete(`/quiz/variant/${this.currentDeleteTest.id}/`)
         this.$toast.success('Тест удален успешно!')
         this.currentDeleteTest = null
         await this.getVariants()
@@ -103,9 +111,9 @@ export default {
     async getVariants() {
       this.SET_LOADER(true)
       try {
-        const {data} = await this.$axios.get("/super-admin/variant-list/?page_size=1000")
+        const {data} = await this.$axios.get("/quiz/variant/?test_type=NIS&page_size=1000")
         if (data) {
-          this.variants = data.data
+          this.variants = data.results
         }
       } catch (e) {
         alert(e)

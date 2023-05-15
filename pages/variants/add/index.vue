@@ -17,12 +17,12 @@
             >
           </div>
           <div class="row-group">
-            <label for="test_lang">Язык <span>*</span></label>
-            <select class="row-group-control" id="test_lang"
-                    :class="{error: this.$v.form.test_lang.$dirty && !this.$v.form.test_lang.required}"
-                    v-model="form.test_lang">
-              <option :value="0">Қазақша</option>
-              <option :value="1">Русский</option>
+            <label for="language">Язык <span>*</span></label>
+            <select class="row-group-control" id="language"
+                    :class="{error: this.$v.form.language.$dirty && !this.$v.form.language.required}"
+                    v-model="form.language">
+              <option value="KZ">Қазақша</option>
+              <option value="RU">Русский</option>
             </select>
           </div>
           <button class="c-btn">
@@ -47,8 +47,10 @@ export default {
   data() {
     return {
       form: {
+        test_type: 'NIS',
+        is_active: false,
         name: '',
-        test_lang: '',
+        language: '',
       },
       errorForm: false,
     }
@@ -56,7 +58,7 @@ export default {
   validations: {
     form: {
       name: {required},
-      test_lang: {required},
+      language: {required},
     },
   },
   created() {
@@ -73,11 +75,11 @@ export default {
     },
     async add() {
       try {
-        const {data} = await this.$axios.post('/super-admin/create-variant/', this.form)
+        const {data} = await this.$axios.post('/quiz/variant/', this.form)
         if (data) {
           this.form = {
             name: '',
-            test_lang: '',
+            language: '',
           }
           this.variants = []
           this.$toast.success('Вариант успешно создан!!!')

@@ -1,7 +1,6 @@
 <template>
   <div class="login">
     <div class="form">
-      <img src="../../assets/img/login-main.png" alt="" class="form-logo">
       <div class="header">
         <div class="title active">
           {{ $t('login.title') }}
@@ -10,13 +9,12 @@
       <form class="form__group" @submit.prevent="checkForm">
         <div
           :class="['form__group-control', {error: error.has && !form.iin }]">
-          <label class="form__group-control-label" for="email">Email</label>
           <div class="input">
             <input
               type="text" id="email"
               ref="username"
               v-model="form.iin"
-              placeholder="example@gmail.com"
+              placeholder="Email"
               required>
             <div class="icon">
               <d-icon name="formUserIcon"/>
@@ -24,7 +22,6 @@
           </div>
         </div>
         <div class="form__group-control password" :class="{error: error.has && !form.password}">
-          <label class="form__group-control-label" for="pass">{{ $t('login.pass') }}</label>
           <div class="input">
             <div class="icon">
               <d-icon name="formPassIcon"/>
@@ -33,7 +30,7 @@
                    v-model="form.password"
                    ref="password"
                    autocomplete="off"
-                   :placeholder="$t('registration.pass')"
+                   :placeholder="$t('login.pass')"
                    required>
             <img src="../../assets/img/eyes.png" alt="" class="eyes" @click="togglePass('password')">
           </div>
@@ -101,7 +98,7 @@ export default {
       try {
         await this.$auth.loginWith('local', {
           data: {
-            username:  this.form.iin,
+            username: this.form.iin,
             password: this.form.password
           }
         })
@@ -128,14 +125,21 @@ export default {
   align-items: center;
   min-height: 100vh;
   justify-content: center;
+  background: linear-gradient(90deg, rgba(97, 169, 237, 1) 25%, rgba(29, 138, 231, 1) 35%, rgba(24, 100, 171, 1) 100%);
 
   .form {
+    background-color: $white;
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 700px;
+    max-width: 400px;
     width: calc(100% - 30px);
-    padding: rem(30) 0;
+    padding: rem(30);
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+
 
     &-logo {
       max-width: 230px;
@@ -145,7 +149,7 @@ export default {
     }
 
     .header {
-      margin: rem(66) 0 rem(60);
+      margin: 20px 0 rem(60);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -182,19 +186,10 @@ export default {
           margin-top: 0;
         }
 
-        label {
-          font-weight: 400;
-          font-size: 12px;
-          line-height: 1.2;
-          color: #686868;
-          margin-bottom: 5px;
-          display: block;
-        }
-
         .icon {
           position: absolute;
           top: 50%;
-          left: 0;
+          left: 15px;
           width: 20px;
           height: auto;
           transform: translateY(-50%);
@@ -203,14 +198,20 @@ export default {
         .input {
           position: relative;
 
+          &:deep(svg) {
+            path {
+              fill: #1864ab;
+            }
+          }
+
           input {
             color: $midnight;
             font-size: 16px;
             line-height: 1.2;
-            border: 0;
-            border-bottom: 1px solid #686868;
+            border: 1px solid #1864ab;
+            border-radius: 10px;
             width: 100%;
-            padding: 5px 5px 5px 25px;
+            padding: 15px 15px 15px 45px;
 
             &::placeholder {
               font-size: 14px;
@@ -230,39 +231,25 @@ export default {
           }
         }
 
-        &.phone {
-          .number {
-            position: absolute;
-            bottom: 6px;
-            left: 25px;
-            font-size: 16px;
-            line-height: 1.2;
-          }
-
-          input {
-            padding-left: 48px;
-          }
-        }
-
         &.error {
           input {
-            border-bottom-color: $red !important;
-          }
+            border-color: $red !important;
 
-          label {
-            color: $red !important;
+            &::placeholder {
+              color: $red !important;
+            }
           }
         }
 
         &.password {
           input {
-            padding-right: 35px;
+            padding-right: 45px;
           }
 
           .eyes {
             position: absolute;
             top: 50%;
-            right: 5px;
+            right: 15px;
             transform: translateY(-50%);
             width: 25px;
             height: auto;
@@ -341,6 +328,8 @@ export default {
     background: $main_color;
     color: $white;
     border: 0;
+    width: 100%;
+    border-radius: 10px;
 
     &:disabled {
       border: 1px solid #999999;

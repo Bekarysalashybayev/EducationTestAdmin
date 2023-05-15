@@ -2,7 +2,7 @@
   <div class="page">
     <div class="page-body">
       <div class="page-title font-size-24">
-        <div class="back" @click="$router.push(`/variants/${id}/${variantID}/questions`)">
+        <div class="back" @click="$router.push(`/variants/${variantID}/${lessonId}/questions`)">
           <d-icon name="ComeBackIcon" :width="30" :height="30"/>
         </div>
         Вопрос
@@ -10,21 +10,26 @@
       <div class="questions">
         <div class="add-form">
           <div class="text">
-            <div class="form-title-common">Текст <span>*</span></div>
-            <div class="common">
-              <select name="" id="" v-model="commonQuestion">
-                <option :value="common.id" v-for="common in commonQuestions">{{ common.name }}</option>
-              </select>
-              <div class="common-actions">
-                <button><img src="@/assets/img/edit.svg" alt="" @click="editCommon"></button>
-                <button><img src="@/assets/img/add.svg" alt="" @click="addCommon"></button>
-                <button><img src="@/assets/img/delete.svg" alt="" @click="deleteSelectCommon"></button>
-              </div>
+            <div class="question-text">
+              <div class="form-title-common">Балл <span>*</span></div>
+              <input type="number" class="input-number" v-model.number="point">
+            </div>
+            <div class="question-text">
+              <div class="form-title-common">Ссылка на видео <span>*</span></div>
+              <input type="text" class="input-number w-100" v-model="link">
             </div>
             <div class="question-text">
               <div class="form-title-common">Вопрос <span>*</span></div>
               <client-only placeholder="loading...">
                 <ckeditor-nuxt v-model="question.text" :config="editorConfig" class="answer-input"/>
+              </client-only>
+            </div>
+            <br>
+            <br>
+            <div class="question-text">
+              <div class="form-title-common">Объяснение <span>*</span></div>
+              <client-only placeholder="loading...">
+                <ckeditor-nuxt v-model="correct_way" :config="editorConfig" class="answer-input"/>
               </client-only>
             </div>
           </div>
@@ -54,46 +59,6 @@
         <button @click="saveQuestion">Сохранить</button>
       </div>
     </div>
-    <modal-window v-if="commonModal">
-      <template #content>
-        <div class="add-common-question">
-          <div class="add-common-text">
-            <div class="form-title-common">Название <span>*</span></div>
-            <input type="text" v-model="newCommonQuestion.name">
-          </div>
-          <div class="add-common-text">
-            <div class="form-title-common">Текст <span>*</span></div>
-            <client-only placeholder="loading...">
-              <ckeditor-nuxt v-model="newCommonQuestion.text" :config="editorConfig" class="answer-input"/>
-            </client-only>
-          </div>
-          <div class="common-buttons">
-            <button @click="commonSave">Сохранить</button>
-            <button @click="commonModal=false">Отмена</button>
-          </div>
-        </div>
-      </template>
-    </modal-window>
-    <modal-window v-if="commonModalAdd">
-      <template #content>
-        <div class="add-common-question">
-          <div class="add-common-text">
-            <div class="form-title-common">Название <span>*</span></div>
-            <input type="text" v-model="newCommonQuestion.name">
-          </div>
-          <div class="add-common-text">
-            <div class="form-title-common">Текст <span>*</span></div>
-            <client-only placeholder="loading...">
-              <ckeditor-nuxt v-model="newCommonQuestion.text" :config="editorConfig" class="answer-input"/>
-            </client-only>
-          </div>
-          <div class="common-buttons">
-            <button @click="commonSavePost">Сохранить</button>
-            <button @click="commonModalAdd=false">Отмена</button>
-          </div>
-        </div>
-      </template>
-    </modal-window>
   </div>
 </template>
 <script>
@@ -106,7 +71,7 @@ export default {
     DIcon,
     ModalWindow,
     'ckeditor-nuxt': () => {
-      if (process.client) {
+      if (process['client']) {
         return import('@blowstack/ckeditor-nuxt')
       }
     },
@@ -115,17 +80,16 @@ export default {
     return {
       editorConfig: {
         simpleUpload: {
-          uploadUrl: process.env.BASE_URL + '/quizzes/question-image/',
+          uploadUrl: process.env.BASE_URL + '/quiz/question-image/',
         },
         removePlugins: ['Title'],
       },
       editorConfigText: {
         simpleUpload: {
-          uploadUrl: process.env.BASE_URL + '/quizzes/question-image/',
+          uploadUrl: process.env.BASE_URL + '/quiz/question-image/',
         },
         removePlugins: ['Title'],
       },
-      commonQuestions: [],
       letters: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K'],
       answers: [
         {
@@ -152,51 +116,26 @@ export default {
       question: {
         text: '',
       },
-      commonQuestion: null,
-      newCommonQuestion: {
-        id: '',
-        name: '',
-        text: ''
-      },
-      commonModal: false,
-      commonModalAdd: false,
-      isCompleted: true
-    }
-  },
-  head() {
-    return {
-      script: [
-        {
-          hid: 'stripe',
-          src: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML',
-          defer: true,
-          body: true
-        }
-      ]
-    }
-  },
-  computed: {
-    variantID() {
-      return this.$route.params.lesson
-    },
-    id() {
-      return this.$route.params.id
-    },
-    questionID() {
-      return this.$route.params.questionID
-    },
-  },
-  watch: {
-    latex() {
-      this.reRender()
+      point: 15,
+      correct_way: null,
+      link: null,
+      isCompleted: true,
+      questionID: this.$route.params.questionID,
+      variantID: this.$route.params.id,
+      lessonId: this.$route.params.lesson,
     }
   },
   mounted() {
-    this.getCommonQuestions()
     this.getQuestion()
   },
   methods: {
     checkAnswer() {
+
+      if (!this.point) {
+        this.$toast.error('Напишите балл')
+        return false
+      }
+
       let hasCorrect = false
       let hasCorrectAnswer = false
       if (this.answers > 0) {
@@ -228,119 +167,30 @@ export default {
         this.$toast.error('Напишите вопрос')
       } else if (this.checkAnswer()) {
         try {
-          const data = (await this.$axios.put(`/super-admin/question/${this.questionID}/`,
+          const data = (await this.$axios.put(`/quiz/question/${this.questionID}/`,
             {
-              variant_lesson: this.variantID,
-              common_question: this.commonQuestion,
               question: this.question.text,
-              answers: this.answers
+              point: this.point,
+              link: this.link,
+              correct_way: this.correct_way,
+              answers: this.answers.map((a, index) => {
+                return {
+                  answer: a['answer'],
+                  is_correct: a['correct'],
+                  order: index + 1
+                }
+              })
             }
           )).data
           this.$toast.success('Вопрос изменен успешно!')
-          this.commonQuestion = null
-          this.question.text = ''
-          this.answers = [
-            {
-              correct: false,
-              answer: '',
-            },
-            {
-              correct: false,
-              answer: '',
-            },
-            {
-              correct: false,
-              answer: '',
-            },
-            {
-              correct: false,
-              answer: '',
-            },
-            {
-              correct: false,
-              answer: '',
-            },
-          ]
-          await this.$router.push(`/variants/${this.id}/${this.variantID}/questions`)
+          this.$toast.clear()
+          await this.$router.push(`/variants/${this.variantID}/${this.lessonId}/questions`)
         } catch (er) {
           console.log(er)
         }
-      }
-    },
-    async editCommon() {
-      if (this.commonQuestion == null) {
-        this.$toast.error('Текст не выбран')
-      } else {
-        try {
-          const data = (await this.$axios.get(`/super-admin/common-question/${this.commonQuestion}/`)).data
-          this.newCommonQuestion = data
-          this.commonModal = true
-        } catch (er) {
-          console.log(er)
-        }
-      }
-    },
-    addCommon() {
-      this.newCommonQuestion = {
-        name: '',
-        text: ''
-      }
-      this.commonModalAdd = true
-    },
-    async commonSavePost() {
-      if (this.newCommonQuestion.name == '') {
-        this.$toast.error('Напишите название')
-      } else if (this.newCommonQuestion.text == '') {
-        this.$toast.error('Нпишите текст')
-      } else {
-        this.newCommonQuestion.variant_lesson = this.variantID
-        try {
-          const data = (await this.$axios.post(`/super-admin/add-common-question/`,
-            this.newCommonQuestion
-          )).data
-          this.$toast.success('Текст изменен успешно!')
-          await this.getCommonQuestions()
-          this.commonQuestion = data.id
-          this.commonModalAdd = false
-          this.newCommonQuestion = {
-            name: '',
-            text: ''
-          }
-        } catch (er) {
-          console.log(er)
-        }
-      }
-    },
-    async commonSave() {
-      if (this.newCommonQuestion.name == '') {
-        this.$toast.error('Напишите название')
-      } else if (this.newCommonQuestion.text == '') {
-        this.$toast.error('Напишите текст')
-      } else {
-        try {
-          const data = (await this.$axios.put(`/super-admin/common-question/${this.commonQuestion}/`, this.newCommonQuestion)).data
-          this.$toast.success('Текст успешно создан!')
-          await this.getCommonQuestions()
-          this.commonQuestion = data.id
-          this.commonModal = false
-        } catch (er) {
-          alert(er)
-        }
-      }
-    },
-    deleteSelectCommon() {
-      this.commonQuestion = null
-      this.$toast.success('Текст отменен')
-    },
-    reRender() {
-      if (window.MathJax) {
-        window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub], () => console.log('done'));
       }
     },
     addAnswer() {
-      this.$nextTick().then(() => {
-        this.reRender();
-      });
       if (this.answers.length < 10) {
         this.answers.push(
           {
@@ -357,19 +207,17 @@ export default {
     },
     async getQuestion() {
       try {
-        const data = (await this.$axios.get(`/super-admin/question/${this.questionID}/`)).data
+        const data = (await this.$axios.get(`/quiz/question/${this.questionID}/`)).data
         this.question.text = data.question
-        this.commonQuestion = data.common_question
-        this.answers = data.answers
-      } catch (er) {
-        console.log(er)
-      }
-    },
-    async getCommonQuestions() {
-      try {
-        const data = (await this.$axios.get(`/super-admin/common-question-list/${this.variantID}/`)).data
-        this.commonQuestions = data
-        this.reRender();
+        this.correct_way = data.correct_way
+        this.point = data.point
+        this.link = data.link
+        this.answers = data.answers.map(a => {
+          return {
+            ...a,
+            correct: a['is_correct']
+          }
+        })
       } catch (er) {
         console.log(er)
       }
@@ -393,5 +241,24 @@ export default {
 
 .page-title .back:hover {
   opacity: .9;
+}
+
+.input-number {
+  padding: 5px 10px;
+  width: 100px;
+  margin-bottom: 20px;
+  border: 1px solid #c4c4c4;
+  border-radius: 5px;
+
+
+}
+
+.w-100 {
+  width: 100% !important;
+}
+
+.input-number:focus {
+  outline: none;
+  border-color: #6cb5f9;
 }
 </style>

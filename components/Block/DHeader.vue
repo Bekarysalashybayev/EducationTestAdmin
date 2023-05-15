@@ -1,20 +1,22 @@
 <template>
-<div class="d-header">
-  <div class="logo">
-    <d-icon name="LogoIcon" :width="178" :height="40" />
+  <div class="d-header">
+    <div class="logo">
+      <d-icon name="LogoIcon" :width="40" :height="40"/>
+      NIS-ADMIN
+    </div>
+    <button class="burger" @click="$emit('close')">
+      <d-icon name="BurgerIcon" width="2.375rem" height="1.46875rem"/>
+    </button>
+    <div class="lang">
+      <lang-switcher/>
+    </div>
   </div>
-  <button class="burger" @click="$emit('close')">
-    <d-icon name="BurgerIcon" width="2.375rem" height="1.46875rem"/>
-  </button>
-  <div class="lang">
-    <lang-switcher />
-  </div>
-</div>
 </template>
 
 <script>
 import DIcon from "@/components/core/icons/DIcon";
 import LangSwitcher from "@/components/core/LangSwitcher";
+
 export default {
   name: "DHeader",
   components: {LangSwitcher, DIcon}
@@ -22,7 +24,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.d-header{
+.d-header {
   position: sticky;
   top: 0;
   left: 0;
@@ -35,43 +37,41 @@ export default {
   display: flex;
   align-items: center;
 
-  .logo{
-    font-size: rem(30);
+  .logo {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
     overflow: hidden;
     color: #1864AB;
 
-    &::v-deep{
-      svg{
-        width: rem(178);
+    &::v-deep {
+      svg {
+        margin-right: 15px;
       }
     }
-
-    img{
-      height: 100%;
-      width: auto!important;
-      object-fit: cover;
-    }
   }
-  .burger{
+
+  .burger {
     margin-left: rem(86);
   }
-  .lang{
+
+  .lang {
     margin-left: auto;
   }
 
-  @media screen and (max-width: $laptop_size){
+  @media screen and (max-width: $laptop_size) {
     padding: 0 rem(20);
 
-    .logo{
+    .logo {
       order: 2;
       margin-top: -3px;
     }
-    .burger{
+    .burger {
       order: 1;
       margin-left: 0;
       margin-right: rem(20);
     }
-    .lang{
+    .lang {
       order: 3;
       margin-left: auto;
     }

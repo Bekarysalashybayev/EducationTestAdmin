@@ -1,32 +1,33 @@
 <template>
-<div class="page">
-  <div class="page-body">
-    <div class="page-title font-size-24">
-      <div class="back" @click="$router.push('/variants')">
-        <d-icon name="ComeBackIcon" :width="30" :height="30"/>
-      </div>
-      Предметы
-    </div>
-    <div class="page-list">
-      <div class="page-list-item" v-for="(lesson, i) in lessons" :key="i">
-        <div class="header">
-          <div class="name font-size-17">
-            {{ lesson['lesson']['name'] }}
-          </div>
+  <div class="page">
+    <div class="page-body">
+      <div class="page-title font-size-24">
+        <div class="back" @click="$router.push('/variants')">
+          <d-icon name="ComeBackIcon" :width="30" :height="30"/>
         </div>
-        <div class="c-btn-list">
-          <div class="c-btn" @click="$router.push(`/variants/${variant_id}/${lesson.id}/import`)">
-            <span>Импорт</span>
-            <d-icon name="BtnArrowIcon" :width="7" :height="13"/>
+        Предметы
+      </div>
+      <div class="page-list">
+        <div class="page-list-item" v-for="(lesson, i) in lessons" :key="i">
+          <div class="header">
+            <img :src="lesson.icon" alt="icon">
+            <div class="name font-size-17">
+              {{ lesson['name_ru'] }}
+            </div>
           </div>
-          <div class="c-btn" @click="$router.push(`/variants/${variant_id}/${lesson.id}/questions`)">
-            Список вопросов
+          <div class="c-btn-list">
+            <!--          <div class="c-btn" @click="$router.push(`/variants/${variant_id}/${lesson.id}/import`)">-->
+            <!--            <span>Импорт</span>-->
+            <!--            <d-icon name="BtnArrowIcon" :width="7" :height="13"/>-->
+            <!--          </div>-->
+            <div class="c-btn" @click="$router.push(`/variants/${variant_id}/${lesson.id}/questions`)">
+              Список вопросов
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -36,8 +37,8 @@ import DIcon from "~/components/core/icons/DIcon";
 export default {
   name: "index",
   components: {DIcon},
-  data(){
-    return{
+  data() {
+    return {
       variant_id: this.$route.params.id,
       lessons: [],
     }
@@ -52,7 +53,7 @@ export default {
     async getLessons() {
       this.SET_LOADER(true)
       try {
-        const {data} = await this.$axios.get(`/super-admin/variant-lessons/${this.variant_id}/`)
+        const {data} = await this.$axios.get(`/quiz/lesson/?test_type=NIS`)
         if (data) {
           this.lessons = data
         }
@@ -78,11 +79,11 @@ export default {
     display: flex;
     align-items: center;
 
-    .back{
+    .back {
       margin-right: 20px;
       cursor: pointer;
 
-      &:hover{
+      &:hover {
         opacity: .9;
       }
     }
@@ -95,7 +96,7 @@ export default {
     margin: rem(-20);
 
     &-item {
-      flex: 0 0 calc(33% - 40px);
+      flex: 0 0 calc(15% - 40px);
       background: #FFFFFF;
       border: 1px solid #A5A5A5;
       border-radius: 10px;
@@ -105,16 +106,15 @@ export default {
       max-width: 400px;
 
       .header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        .name {
-          font-weight: 500;
+        img {
+          width: 70px;
+          height: auto;
+          object-fit: contain;
         }
 
-        .delete {
-          cursor: pointer;
+        .name {
+          margin-top: 15px;
+          font-weight: 600;
         }
       }
 
@@ -139,11 +139,13 @@ export default {
     }
   }
 }
-.c-btn-list{
+
+.c-btn-list {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 .c-btn {
   flex: 0 0 calc(50% - 7.5px);
   margin-top: 16px;

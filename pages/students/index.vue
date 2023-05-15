@@ -87,17 +87,17 @@ export default {
       await this.getStudents()
     },
     async getStudents(){
-      this.SET_LOADER(true)
-      try {
-        const {data} = await this.$axios.get("/super-admin/get-all-students/", {params: this.form})
-        if (data && data.data){
-          this.students = data
-        }
-      }catch (e) {
-        alert(e)
-      }finally {
-        this.SET_LOADER(false)
-      }
+      // this.SET_LOADER(true)
+      // try {
+      //   const {data} = await this.$axios.get("/super-admin/get-all-students/", {params: this.form})
+      //   if (data && data.data){
+      //     this.students = data
+      //   }
+      // }catch (e) {
+      //   alert(e)
+      // }finally {
+      //   this.SET_LOADER(false)
+      // }
     },
     ...mapMutations({
       SET_LOADER: 'test/SET_LOADER'

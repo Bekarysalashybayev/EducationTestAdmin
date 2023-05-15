@@ -11,37 +11,29 @@
         </button>
       </div>
       <div class="questions" v-if="questions.length>0">
-        <div class="question-item" v-for="(question, i) in questions" :key="question.id">
+        <div class="question-item" v-for="(q, i) in questions" :key="q.question.id">
           <div class="question-item-text">
             <span class="question-item-number">{{ i + 1 }}.</span>
             <div>
-              <div v-if="question['common_question']">
-                <div v-html="question['common_question'].text"></div>
-                <br>
-              </div>
-              <div v-html="question.question"></div>
+              <div v-html="q.question.question"></div>
             </div>
           </div>
           <div class="question-item-answers">
             <div class="question-item-answer"
-                 v-for="(answer, i) in question['answers']"
+                 v-for="(answer, i) in q.question['answers']"
                  :key="answer.id"
-                 :class="{correct: answer.correct}"
+                 :class="{correct: answer.is_correct}"
             >
               <div class="question-item-answer-letter">{{ letters[i] }})</div>
               <div class="question-item-answer-text">
-                <div v-html="answer.answer"></div>
+                <math-jax-content :content="answer.answer"/>
               </div>
             </div>
           </div>
           <div class="question-item-actions">
-            <nuxt-link :to="{path: `/variants/${variant_id}/${lesson_id}/edit/${question.id}`}" class="edit">Изменить
+            <nuxt-link :to="{path: `/variants/${variant_id}/${lesson_id}/edit/${q.question.id}`}" class="edit">Изменить
             </nuxt-link>
-            <button class="delete" @click="deleteQuestionModal(question.id)">Удалить</button>
-          </div>
-          <div class="order">
-            <input type="number" v-model="question.number">
-            <button @click="sendNumber(question.number, question.id)">OK</button>
+            <button class="delete" @click="deleteQuestionModal(q.question.id)">Удалить</button>
           </div>
         </div>
       </div>
@@ -73,10 +65,11 @@
 <script>
 import DIcon from "~/components/core/icons/DIcon";
 import {mapMutations} from "vuex";
+import MathJaxContent from "~/components/core/MathJaxContent.vue";
 
 export default {
   name: "questions",
-  components: {DIcon},
+  components: {MathJaxContent, DIcon},
   data() {
     return {
       variant_id: this.$route.params.id,
@@ -88,29 +81,14 @@ export default {
       questionDeleteId: null,
     }
   },
-  head: {
-    title: "Список вопросов",
-    script: [
-      {
-        hid: 'stripe',
-        src: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML',
-        defer: true,
-        body: true
-      }
-    ]
-  },
   mounted() {
-    this.getStatus()
     this.getQuestions()
-  },
-  updated() {
-    this.reRender()
   },
   methods: {
     async deleteCurrentTest() {
       this.SET_LOADER(true)
       try {
-        await this.$axios.delete(`/super-admin/question/${this.questionDeleteId}/`)
+        await this.$axios.delete(`/quiz/question/${this.questionDeleteId}/`)
         await this.getQuestions()
         this.cancelDeleteCurrentTest()
       } catch (e) {
@@ -123,11 +101,6 @@ export default {
       this.questionDeleteId = null
       this.isQuestionDeleteModal = false
     },
-    reRender() {
-      if (window.MathJax) {
-        window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub], () => console.log('done'));
-      }
-    },
     deleteQuestionModal(id) {
       this.questionDeleteId = id
       this.isQuestionDeleteModal = true
@@ -135,33 +108,14 @@ export default {
     async getQuestions() {
       this.SET_LOADER(true)
       try {
-        const {data} = await this.$axios.get(`/super-admin/question-list/${this.lesson_id}/`)
+        const {data} = await this.$axios.get(`/quiz/variant-questions/${this.variant_id}/${this.lesson_id}/`)
         if (data) {
           this.questions = data
-          await this.reRender()
         }
       } catch (e) {
         alert(e)
       } finally {
         this.SET_LOADER(false)
-      }
-    },
-    async getStatus() {
-      try {
-        const data = (await this.$axios.get(`/super-admin/check-variant/${this.lesson_id}/`)).data
-        this.isCompleted = data.status
-      } catch (er) {
-        alert(er)
-      }
-    },
-    async sendNumber(number, id) {
-      try {
-        await this.$axios.patch(`/super-admin/question/${id}/`, {
-          "number": number
-        })
-        this.$toast.success('Обновление успешно завершено!')
-      } catch (er) {
-        this.$toast.error('Ошибка')
       }
     },
     ...mapMutations({

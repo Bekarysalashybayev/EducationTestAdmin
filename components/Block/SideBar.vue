@@ -10,7 +10,7 @@
             </div>
             <div class="links__user-data closed">
               <div class="links__user-data-name">
-                {{ currentUser.first_name + " " + currentUser.last_name + " " + currentUser.middle_name }}
+                {{ currentUser?.first_name + " " + currentUser?.last_name }}
               </div>
               <div class="links__user-data-iin">
                 Администратор
@@ -72,11 +72,6 @@ export default {
           icon: "VariantIcon",
           url: "variants/",
         },
-        {
-          name: "Тесты",
-          icon: "TestsIcon",
-          url: "tests/",
-        },
       ],
     }
   },
@@ -104,6 +99,10 @@ export default {
       try {
         const {data} = (await this.$axios.get('user/me/'))
         if (data) {
+          if (data.role.name === 'STUDENT'){
+            await this.logOut()
+            return
+          }
           await this.$store.dispatch('user/authUser', data)
         }
       } catch (e) {

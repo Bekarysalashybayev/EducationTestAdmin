@@ -17,8 +17,15 @@ export default {
       {name: 'format-detection', content: 'telephone=no'}
     ],
     link: [
-      {rel: 'icon', type: 'image/x-icon', href: '/favicon.svg'}
-    ]
+      {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
+    ],
+    script: [
+      {
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-chtml.js',
+        async: true,
+        crossorigin: 'anonymous',
+      },
+    ],
   },
 
   css: [
@@ -70,7 +77,7 @@ export default {
           property: 'access',
         },
         endpoints: {
-          login: {url: '/user/staff-login/', method: 'post'},
+          login: {url: '/user/login/', method: 'post'},
           logout: false,
           user: false
         }
